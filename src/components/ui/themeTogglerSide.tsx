@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
+import Moon from '@/components/icons/moon'
+import Sun from '@/components/icons/sun'
 
-const ThemeToggler = () => {
+const ThemeTogglerSide = () => {
   const [mounted, setMounted] = useState(false)
   const { systemTheme, theme, setTheme } = useTheme()
 
@@ -17,12 +19,12 @@ const ThemeToggler = () => {
 
   const currentTheme = theme === 'system' ? systemTheme : theme
   console.log(currentTheme);
-  
+
   return (
-    <button className='h-8 w-14 px-1 flex justify-start dark:justify-end items-center border-2 border-purple dark:border-violet rounded-full cursor-pointer' onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}>
-      <div className='h-5 w-5 bg-purple dark:bg-violet rounded-full'></div>
+    <button onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}>
+      {theme === 'dark' ? <Moon /> : <Sun />}
     </button>
   )
 }
 
-export default ThemeToggler
+export default ThemeTogglerSide

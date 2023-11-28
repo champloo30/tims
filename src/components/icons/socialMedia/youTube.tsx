@@ -2,7 +2,7 @@ import React from 'react'
 
 const YouTube = () => {
   return (
-    <svg className='group h-6 w-6' viewBox="0 -1 20 20" version="1.1">
+    <svg className='group h-6 w-6' viewBox="0 -3 20 20" version="1.1">
       <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7442.000000)" className='fill-dark-armor dark:fill-old-lace group-hover:fill-purple dark:group-hover:fill-violet transition linear duration-300'>
           <g transform="translate(56.000000, 160.000000)">

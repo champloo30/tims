@@ -11,11 +11,16 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ edit, anon }) => {
   return (
-    <div className='h-64 w-full flex justify-center items-center px-32 gap-8 bg-old-lace dark:bg-raisin border-b-4 border-purple-dark dark:border-old-lace'>
-      <div className='flex justify-center items-start gap-8'>
-        <div className='flex flex-col justify-center items-center gap-2'>
-          <div className='h-24 w-24 bg-purple dark:bg-violet rounded-full'></div>
-          <p className={edit === false || anon === false ? `lg:hover:text-purple dark:lg:hover:text-violet lg:hover:underline cursor-pointer transition-all ease-linear duration-150`: ``} title='View User Page'>{anon ? `@_anonymous` : `@johndoe_20`}</p>
+    <div className='h-fit w-full flex justify-center items-center px-4 xl:px-32 py-4 xl:py-8 gap-2 xl:gap-8 bg-old-lace dark:bg-raisin border-b-4 border-purple-dark dark:border-old-lace'>
+      <div className='flex flex-col xl:flex-row justify-center items-start gap-4 xl:gap-8'>
+        <div className='w-full xl:w-fit flex xl:flex-col justify-between xl:justify-center items-end xl:items-center gap-4'>
+          <div className='flex xl:flex-col justify-start xl:justify-center items-end xl:items-center gap-2'>
+            <div className='h-16 xl:h-24 w-16 xl:w-24 bg-purple dark:bg-violet rounded-full'></div>
+            <div className='flex flex-col items-start xl:items-center'>
+              <p>{anon ? `Anonymous` : `John Doe`}</p>
+              <p className={edit || anon ? `` : `lg:hover:text-purple dark:lg:hover:text-violet lg:hover:underline cursor-pointer transition-all ease-linear duration-150`} title='View User Page'>{anon ? `@_anonymous` : `@johndoe_20`}</p>
+            </div>
+          </div>
           <div>
             {edit ? 
               <div className='flex justify-center items-center gap-2'>
@@ -29,16 +34,17 @@ const Post: React.FC<PostProps> = ({ edit, anon }) => {
              : null}
           </div>
         </div>
-        <div className='flex flex-col gap-9'>
+        <div className='flex flex-col gap-4 xl:gap-4'>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Purus gravida quis blandit turpis. Molestie nunc non blandit massa enim nec dui nunc mattis. Scelerisque fermentum dui faucibus in ornare quam viverra. Pharetra et ultrices neque ornare aenean.</p>
-          <div className='flex justify-start items-center gap-2'>
-            <form action="" method="post">
+          <p className='w-fit p-2 bg-fade dark:bg-fade-dark rounded-lg'>4h ago</p>
+          <div className='flex justify-start items-center xl:gap-2'>
+            <form className='hidden xl:flex' action="" method="post">
               <input className='h-10 w-[30rem] px-2 flex bg-old-lace dark:bg-raisin border-2 border-purple dark:border-violet rounded-full placeholder:text-dark-armor dark:placeholder:text-old-lace' type="text" name="comment" id="comment" placeholder='Comment...' />
             </form>
             <div className='cursor-pointer' title='View Comments'>
               <Comment />
             </div>
-            <div className='cursor-pointer' title='Like User Post'>
+            <div className='ml-2 xl:ml-0 cursor-pointer' title='Like User Post'>
               <Heart />
             </div>
           </div>

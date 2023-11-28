@@ -1,14 +1,16 @@
 'use client'
 
 import MySettings from '@/components/settingspage/mySettings'
-import SideNav from '@/components/sideNav'
+import LargeNav from '@/components/nav/largeNav'
 import React from 'react'
 import { ThemeProvider } from 'next-themes';
+import MobileNav from '@/components/nav/mobileNav';
 
 const Settings = () => {
   return (
     <ThemeProvider attribute='class'>
-      <SideNav />
+      <LargeNav />
+      <MobileNav />
       <MySettings />
     </ThemeProvider>
   )

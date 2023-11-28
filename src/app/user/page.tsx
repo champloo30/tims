@@ -1,14 +1,16 @@
 'use client'
 
 import MyProfile from '@/components/profilepage/myProfile'
-import SideNav from '@/components/sideNav'
+import LargeNav from '@/components/nav/largeNav'
 import React from 'react'
 import { ThemeProvider } from 'next-themes'
+import MobileNav from '@/components/nav/mobileNav'
 
 const Home = () => {
   return (
     <ThemeProvider attribute='class'>
-      <SideNav />
+      <LargeNav />
+      <MobileNav />
       <MyProfile />
     </ThemeProvider>
   )

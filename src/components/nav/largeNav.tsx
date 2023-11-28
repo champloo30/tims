@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import ThemeTogglerSide from '../ui/themeTogglerSide'
 
-const SideNav = () => {
+const LargeNav = () => {
   return (
-    <nav className='fixed h-screen w-[20vw] z-20 p-8 flex flex-col justify-between bg-old-lace dark:bg-raisin border-r-4 border-purple-dark dark:border-old-lace'>
+    <nav className='fixed h-screen w-[20vw] z-20 p-8 hidden xl:flex flex-col justify-between bg-old-lace dark:bg-raisin border-r-4 border-purple-dark dark:border-old-lace'>
       <div className='space-y-8'>
         <Link href="/"><h1 className='text-5xl text-purple dark:text-violet uppercase' title='T.I.M.S.' aria-label='T.I.M.S. Home'>t.i.m.s.</h1></Link>
         <ul className='flex flex-col gap-4'>
@@ -29,8 +30,11 @@ const SideNav = () => {
           <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-150'>@johndoe_20</p>
         </div>
       </div>
+      <button className='absolute right-8'>
+        <ThemeTogglerSide />
+      </button>
     </nav>
   )
 }
 
-export default SideNav
+export default LargeNav

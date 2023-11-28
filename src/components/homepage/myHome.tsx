@@ -4,14 +4,14 @@ import Post from '@/components/ui/post'
 
 const MyHome = () => {
   return (
-    <section className='relative h-full w-[80vw] sm:left-[20vw] flex flex-col bg-old-lace' aria-label='my home'>
+    <section className='relative h-full w-full xl:w-[80vw] top-14 xl:top-0 sm:left-[20vw] lg:flex flex-col bg-old-lace' aria-label='my home'>
       <LoadPosts />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <Post edit={false} anon={false} />
+      <Post edit={false} anon={true} />
+      <Post edit={false} anon={false} />
+      <Post edit={false} anon={true} />
+      <Post edit={false} anon={false} />
+      <Post edit={false} anon={true} />
     </section>
   )
 }
