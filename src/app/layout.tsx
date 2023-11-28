@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${libre.className} bg-purple text-dark-armor`}>{children}</body>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={`${libre.className} bg-purple dark:bg-violet text-dark-armor dark:text-old-lace`}>{children}</body>
     </html>
   )
 }
