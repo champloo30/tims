@@ -18,7 +18,6 @@ const ThemeTogglerSide = () => {
   }
 
   const currentTheme = theme === 'system' ? systemTheme : theme
-  console.log(currentTheme);
 
   return (
     <button onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}>

@@ -16,24 +16,24 @@ const Bio = () => {
             <p className='text-sm text-purple dark:text-violet'>@johndoe_20</p>
           </div>
           <ul className='flex gap-4'>
-            <li className='flex flex-col xl:flex-row justify-start items-start xl:gap-1'>
+            <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
               <span>100</span>
               <span className='text-purple dark:text-violet'>Posts</span>
             </li>
-            <li className='flex flex-col xl:flex-row justify-start items-start xl:gap-1'>
+            <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
               <span>12</span>
               <span className='text-purple dark:text-violet'>Anon Posts</span>
             </li>
-            <li className='flex flex-col xl:flex-row justify-start items-start xl:gap-1'>
+            <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
               <span>74</span>
               <span className='text-purple dark:text-violet'>Followers</span>
             </li>
-            <li className='flex flex-col xl:flex-row justify-start items-start xl:gap-1'>
+            <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
               <span>85</span>
               <span className='text-purple dark:text-violet'>Following</span>
             </li>
           </ul>
-          <p className='text-sm'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit.</p>
+          <p className='text-sm'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius si. No more than 225 letters</p>
           <div className='flex gap-4'>
             <div className='flex gap-2'>
               <WebLink />

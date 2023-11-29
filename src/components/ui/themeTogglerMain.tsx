@@ -16,7 +16,6 @@ const MainThemeToggler = () => {
   }
 
   const currentTheme = theme === 'system' ? systemTheme : theme
-  console.log(currentTheme);
   
   return (
     <button className='h-8 w-14 px-1 flex justify-start dark:justify-end items-center border-2 border-purple dark:border-violet rounded-full cursor-pointer' onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}>
