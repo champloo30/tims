@@ -3,8 +3,13 @@
 import React, { useState } from 'react'
 import PostFilter from '@/components/profilepage/postFilter'
 import Post from '@/components/ui/post'
+import { User } from '@prisma/client'
 
-const Posts = () => {
+interface PostsProps {
+  currentUser: User | null
+}
+
+const Posts:React.FC<PostsProps> = ({ currentUser }) => {
   const [active, setActive] = useState('All Post')
 
   return (

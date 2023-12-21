@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 import Facebook from '@/components/icons/socialMedia/facebook'
 import Instagram from '@/components/icons/socialMedia/instagram'
 import YouTube from '@/components/icons/socialMedia/youTube'
-import MainThemeToggler from '@/components/ui/themeTogglerMain'
+import MainThemeToggler from '@/components/icons/themeTogglerMain'
 
 const MySettings = () => {
   const { theme } = useTheme()

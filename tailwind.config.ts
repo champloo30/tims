@@ -9,6 +9,9 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        libre: ['var(--font-libre)']
+      },
       colors: {
         'fade': '#F5EAF5',
         'fade-dark': '#302C30',

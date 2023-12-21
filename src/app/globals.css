@@ -6,3 +6,11 @@ html {
   --scroll-behavior: smooth !important;
   scroll-behavior: smooth !important;
 }
+
+.label:not(:placeholder-shown) {
+  color: rgb(29 28 28 / 0.6);
+}
+
+.dark-label:not(:placeholder-shown) {
+  color: rgb(29 28 28 / 0.6);
+}

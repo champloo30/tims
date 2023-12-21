@@ -20,7 +20,7 @@ const ThemeTogglerSide = () => {
   const currentTheme = theme === 'system' ? systemTheme : theme
 
   return (
-    <button onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}>
+    <button onClick={() => currentTheme === 'dark' ? setTheme('light') : setTheme('dark')}>
       {theme === 'dark' ? <Moon /> : <Sun />}
     </button>
   )

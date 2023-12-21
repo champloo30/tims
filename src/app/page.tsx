@@ -1,18 +1,15 @@
-'use client'
+import React from 'react'
 
-import MyHome from "@/components/homepage/myHome";
-import LargeNav from "@/components/nav/largeNav";
-import MobileNav from "@/components/nav/mobileNav";
-import { ThemeProvider } from 'next-themes';
+import { getCurrentUser } from '../../actions/getCurrentUser'
 
-export default function Home() {
+import Main from '@/components/homepage/main'
+
+const Home = async () => {
+  const currentUser = await getCurrentUser()
+
   return (
-    <ThemeProvider attribute="class">
-      <main className="relative flex">
-        <LargeNav />
-        <MobileNav />
-        <MyHome />
-      </main>
-    </ThemeProvider>
+    <Main currentUser={currentUser} />
   )
 }
+
+export default Home
