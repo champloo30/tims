@@ -57,7 +57,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
             </div>
             <div className='space-y-0'>
               <p>{json.name}</p>
-              <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-150'>@{json.username}</p>
+              <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-150'> CX zx z zdfbfgfs@{json.username}</p>
             </div>
           </Link>
         }
