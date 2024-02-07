@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 import { signOut, useSession } from 'next-auth/react'
 
@@ -12,7 +13,11 @@ import Button from '@/components/ui/button'
 
 import Plus from '@/components/icons/plus'
 import ThemeTogglerSide from '@/components/icons/themeTogglerSide'
-import Image from 'next/image'
+import Home from '@/components/icons/home'
+import Profile from '@/components/icons/profile'
+import Settings from '@/components/icons/settings'
+import Logout from '@/components/icons/logout'
+import Login from '@/components/icons/login'
 
 interface DesktopNavProps {
   currentUser: User | null
@@ -28,13 +33,25 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
       <div className='space-y-8'>
         <Link href="/"><h1 className='text-5xl text-purple dark:text-violet uppercase' title='T.I.M.S.' aria-label='T.I.M.S. Home'>t.i.m.s.</h1></Link>
         <ul className='flex flex-col gap-4'>
-          <Link href="/"><li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Home'>my home</li></Link>
-          <Link href={status === 'authenticated' ? `/${json.username}` : '/login'}><li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Profile'>my profile</li></Link>
-          <Link href={status === 'authenticated' ? `/${json.username}/settings` : '/login'}><li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Settings'>my settings</li></Link>
+          <Link className='group -ml-0.5 flex justify-start items-start gap-1.5' href="/">
+            <Home />
+            <li className='text-2xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-150' title='My Home'>my home</li>
+          </Link>
+          <Link className='group flex justify-start items-start gap-2' href={status === 'authenticated' ? `/${json.username}` : '/login'}>
+            <Profile />
+            <li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Profile'>my profile</li>
+          </Link>
+          <Link className='group -ml-0.5 flex justify-start items-start gap-1.5' href={status === 'authenticated' ? `/${json.username}/settings` : '/login'}>
+            <Settings />
+            <li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Settings'>my settings</li>
+          </Link>
           <li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='Boundless Courage Home'>boundless courage</li>
-          <li className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150 cursor-pointer' title={status === 'authenticated' ? 'Log Out' : 'Log In'} onClick={() => status === 'authenticated' ? signOut() : router.push('/login')}>{status === 'authenticated' ? 'log out' : 'log in'}</li>
+          <li className='group flex justify-start items-start gap-2' title={status === 'authenticated' ? 'Log Out' : 'Log In'} onClick={() => status === 'authenticated' ? signOut() : router.push('/login')}>
+            {status === 'authenticated' ? <Logout /> : <Login />}
+            <p className='text-2xl capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150 cursor-pointer'>{status === 'authenticated' ? 'log out' : 'log in'}</p>
+          </li>
           <li>
-            <Button type='button'>
+            <Button fullWidth large>
               <p className='text-old-lace'>Post</p>
               <Plus />
             </Button>
@@ -43,7 +60,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
       </div>
       <div className='space-y-2'>
         {status === 'authenticated' && 
-          <Link className='group px-4 py-4 flex gap-2 hover:bg-fade dark:hover:bg-fade-dark rounded-lg cursor-pointer transition-all ease-linear duration-150' href={`/${json.username}`}>
+          <Link className='group px-4 py-4 flex gap-2 hover:bg-fade dark:hover:bg-fade-dark rounded-lg cursor-pointer transition-all ease-linear duration-150' href={`/${json.username}`} title='My Profile'>
             <div className='h-12 w-12 bg-purple dark:bg-violet rounded-full'>
               {json.image && 
                 <Image 
@@ -57,7 +74,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
             </div>
             <div className='space-y-0'>
               <p>{json.name}</p>
-              <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-150'> CX zx z zdfbfgfs@{json.username}</p>
+              <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-150'>@{json.username}</p>
             </div>
           </Link>
         }

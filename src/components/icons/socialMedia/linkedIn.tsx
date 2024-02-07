@@ -2,7 +2,7 @@ import React from 'react'
 
 const LinkedIn = () => {
   return (
-    <svg className='h-5 w-5' viewBox="0 0 20 20" version="1.1">
+    <svg className='h-4 w-4' viewBox="0 0 20 20" version="1.1">
       <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="Dribbble-Light-Preview" transform="translate(-180.000000, -7479.000000)" className='fill-dark-armor dark:fill-old-lace hover:fill-purple dark:hover:fill-violet transition linear duration-300'>
           <g id="icons" transform="translate(56.000000, 160.000000)">

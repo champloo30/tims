@@ -62,7 +62,7 @@ const Login:React.FC<LoginProps> = ({ currentUser }) => {
           <div className='h-px w-1/3 bg-purple dark:bg-violet'></div>
         </div>
         <div className='w-full flex flex-col lg:flex-row gap-4'>
-          <button className='h-12 w-full flex justify-center items-center gap-2 bg-old-lace dark:bg-raisin hover:bg-red-600/10 dark:hover:bg-red-600/10 text-lg text-red-600 dark:text-old-lace border-2 border-red-600 rounded-lg' onClick={() => signIn('google')}>
+          <button className='h-12 w-full flex justify-center items-center gap-2 bg-old-lace dark:bg-raisin hover:bg-red-600/20 dark:hover:bg-red-600/20 text-lg text-red-600 dark:text-old-lace border-2 border-red-600 rounded-lg' onClick={() => signIn('google')}>
             <span>Login With Google</span>
             <Google />
           </button>

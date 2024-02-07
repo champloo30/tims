@@ -50,7 +50,7 @@ const UsernameForm:React.FC<UsernameFormProps> = ({ onSubmit, isLoading }) => {
         />
         <label className={`absolute z-10 ml-2 sm:ml-4 origin-[0] text-xl ${invalid ? 'text-danger dark:text-danger-dark' : 'text-purple dark:text-violet'} cursor-text peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 transform -translate-y-3 transition duration-150`} htmlFor='email'>Username</label>
       </div>
-      <Button type='submit'>Create Username</Button>
+      <Button fullWidth outline>Create Username</Button>
     </form>
   )
 }

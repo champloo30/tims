@@ -292,8 +292,8 @@ const ProfileForm:React.FC<ProfileFormProps> = ({ onSubmit, isLoading, currentUs
           </div>
         </div>
         <div className='flex gap-2'>
-          <Button type='button' onClick={() => handleCancel()}>Cancel</Button>
-          <Button type='submit'>Save</Button>
+          <Button onClick={() => handleCancel()}>Cancel</Button>
+          <Button>Save</Button>
         </div>
       </form>
     </div>
