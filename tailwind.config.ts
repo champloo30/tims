@@ -9,8 +9,8 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      fontFamily: {
-        libre: ['var(--font-libre)']
+      animation: {
+        lineDown: 'lineDown 150ms ease-in-out'
       },
       colors: {
         'fade': '#F5EAF5',
@@ -23,6 +23,16 @@ const config: Config = {
         'purple-dark': '#371737',
         'raisin': '#242124',
         'violet': '#A949A9'
+      },
+      fontFamily: {
+        libre: ['var(--font-libre)']
+      },
+      keyframes: {
+        lineDown: {
+          '0%': { height: '0%' },
+          '100%': { height: '100%' },
+          '0': { height: '0%' }
+        }
       },
       screens: {
         'tall': { 'min': '(min-height: 1300px)', 'max': '(max-width: 1100px)' },

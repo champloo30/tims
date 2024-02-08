@@ -39,7 +39,7 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
             <Image 
               className='h-full w-full rounded-full'
               src={currentUser?.image}
-              alt={currentUser?.name}
+              alt={currentUser?.name || 'User'}
               height={100}
               width={100}
             />
@@ -58,7 +58,7 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
                 <Image 
                   className='h-full w-full rounded-full'
                   src={currentUser?.image}
-                  alt={status === 'authenticated' ? currentUser?.name : ''}
+                  alt={status === 'authenticated' && currentUser?.name || 'User'}
                   height={100}
                   width={100}
                 />

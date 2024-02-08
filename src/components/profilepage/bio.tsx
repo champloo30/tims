@@ -1,15 +1,14 @@
 'use client'
 
-import React, { useState } from 'react'
-import Link from 'next/link'
+import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import { User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
 import Button from '@/components/ui/button'
-import ProfileButton from '@/components/ui/profileButton'
 import FollowForm, { FollowData } from '@/components/ui/form/followForm'
 
 import WebLink from '@/components/icons/link'
@@ -22,21 +21,15 @@ import TikTok from '@/components/icons/socialMedia/tiktok'
 import Twitter from '@/components/icons/socialMedia/twitter'
 
 import FollowNums from './followNums'
-import { useRouter } from 'next/navigation'
 
 interface BioProps {
   currentUser: User
   user: User | null
   params: string
-  // toggleFollow: () => void
-  // isFollowing: boolean
 }
 
-const Bio:React.FC<BioProps> = ({ currentUser, user, params, 
-  // isFollowing 
-}) => {
+const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
   const router = useRouter()
-  const json = JSON.parse(JSON.stringify(currentUser))
   const userJson = JSON.parse(JSON.stringify(user))
   
   async function submit(formData: FollowData) {
@@ -44,15 +37,21 @@ const Bio:React.FC<BioProps> = ({ currentUser, user, params,
     const followingUser = formData.followingUser
     const followedUser = formData.followedUser
 
-    router.refresh()
-
-    user?.followers.includes(currentUser.id) ? axios.delete('/api/follow', { data: { followingUser, followedUser } }) : axios.post('/api/follow', formData)
-    .then(() => {
-      toast.success(userJson.followers.includes(json.id) ? `Unfollowed ${userJson.username}` : `Following ${userJson.username}`)
-
-      router.refresh()
-    })
-    .catch(() => {toast.error('Something went wrong')})
+    try {
+      if (user?.followers.includes(currentUser.id)) {
+        axios.delete('/api/follow', { data: { followingUser, followedUser } }).then(() => {
+          toast.success(`Unfollowed @${userJson.username}`)
+          router.refresh()
+        })
+      } else {
+        axios.post('/api/follow', formData).then(() => {
+          toast.success(`Following @${userJson.username}`)
+          router.refresh()
+        })
+      }
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
   }
 
   return (
@@ -129,7 +128,6 @@ const Bio:React.FC<BioProps> = ({ currentUser, user, params,
             <Button title='Edit Profile'>Edit Profile</Button>
           ) :
           (
-            // <Button outline title={isFollowing ? `Unfollow ${userJson.username}` : `Follow ${userJson.username}`} onClick={toggleFollow}>{isFollowing ? `Unfollow ${userJson.username}` : `Follow ${userJson.username}`}</Button>
             <FollowForm currentUser={currentUser} user={user} onSubmit={submit} />
           )
         }
