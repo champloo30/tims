@@ -15,9 +15,10 @@ import AddUsername, { UsernameData } from '@/components/ui/form/usernameForm'
 
 interface MainProps {
   currentUser: User | null
+  params: string
 }
 
-const Main:React.FC<MainProps> = ({ currentUser }) => {
+const Main:React.FC<MainProps> = ({ currentUser, params }) => {
   const { status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const json = JSON.parse(JSON.stringify(currentUser))
@@ -42,7 +43,7 @@ const Main:React.FC<MainProps> = ({ currentUser }) => {
         : null
       }
       <DesktopNav currentUser={currentUser} />
-      <MobileNav currentUser={currentUser} />
+      <MobileNav currentUser={currentUser} params={params} />
       <MyHome currentUser={currentUser} />
     </main>
   )

@@ -3,6 +3,7 @@ import Edit from '@/components/icons/edit'
 import Comment from '@/components/icons/comment'
 import Heart from '@/components/icons/heart'
 import Delete from '@/components/icons/delete'
+import { ChatBubble, Favorite } from '@mui/icons-material'
 
 interface PostProps {
   edit: boolean,
@@ -38,15 +39,8 @@ const Post: React.FC<PostProps> = ({ edit, anon }) => {
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Purus gravida quis blandit turpis. Molestie nunc non blandit massa enim nec dui nunc mattis. Scelerisque fermentum dui faucibus in ornare quam viverra. Pharetra et ultrices neque ornare aenean.</p>
           <p className='w-fit p-2 bg-fade dark:bg-fade-dark rounded-lg'>4h ago</p>
           <div className='flex justify-start items-center xl:gap-2'>
-            <form className='hidden xl:flex' action="" method="post">
-              <input className='h-10 w-[30rem] px-2 flex bg-old-lace dark:bg-raisin border-2 border-purple dark:border-violet rounded-full placeholder:text-dark-armor dark:placeholder:text-old-lace' type="text" name="comment" id="comment" placeholder='Comment...' />
-            </form>
-            <div className='cursor-pointer' title='View Comments'>
-              <Comment />
-            </div>
-            <div className='ml-2 xl:ml-0 cursor-pointer' title='Like User Post'>
-              <Heart />
-            </div>
+            <ChatBubble fontSize='large' />
+            <Favorite fontSize='large' />
           </div>
         </div>
       </div>

@@ -10,7 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        lineDown: 'lineDown 150ms ease-in-out'
+        lineDown: 'lineDown 150ms ease-in-out',
+        grow: 'grow 300ms ease-in'
       },
       colors: {
         'fade': '#F5EAF5',
@@ -32,6 +33,10 @@ const config: Config = {
           '0%': { height: '0%' },
           '100%': { height: '100%' },
           '0': { height: '0%' }
+        },
+        grow: {
+          '0%': { width: '0%', opacity: '0%' },
+          '100%': { width: '100%', opacity: '100%' }
         }
       },
       screens: {

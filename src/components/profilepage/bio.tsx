@@ -85,7 +85,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
                 <span>12</span>
                 <span className='text-purple dark:text-violet'>Anon Posts</span>
               </li>
-              <FollowNums currentUser={currentUser} user={user} />
+              <FollowNums user={user} />
             </ul>
             <p className='text-sm'>{userJson.bio}</p>
             <div className='flex gap-4'>

@@ -3,15 +3,10 @@ import React from 'react'
 // import useFollow from '@/hooks/useFollow'
 
 interface FollowNumsProps {
-  currentUser: User | null
   user: User | null
-  // params: string
-  // isFollowing: boolean
 }
 
-const FollowNums:React.FC<FollowNumsProps> = ({ currentUser, user, 
-  // isFollowing 
-}) => {
+const FollowNums:React.FC<FollowNumsProps> = ({ user }) => {
   const userJson = JSON.parse(JSON.stringify(user))
 
   return (
