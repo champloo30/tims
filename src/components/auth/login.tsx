@@ -19,8 +19,8 @@ interface LoginProps {
 }
 
 const Login:React.FC<LoginProps> = ({ currentUser }) => {
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (currentUser) {

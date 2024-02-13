@@ -12,6 +12,7 @@ import { AddCircle, Home, Login, Logout, Person, Settings, SportsMma } from '@mu
 
 import Button from '@/components/ui/button'
 import ThemeTogglerSide from '@/components/nav/themeTogglerSide'
+import Modal from '../ui/modal'
 
 interface DesktopNavProps {
   currentUser: User | null
@@ -23,6 +24,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
     profile: false,
     settings: false
   })
+  const [openModal, setOpenModal] = useState(false)
 
   const { status } = useSession()
   const router = useRouter()
@@ -67,7 +69,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
             <p className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300'>{status === 'authenticated' ? 'log out' : 'log in'}</p>
           </li>
           <li>
-            <Button fullWidth large>
+            <Button fullWidth large onClick={() => setOpenModal(true)}>
               <p className='text-old-lace'>Post</p>
               <AddCircle className='fill-old-lace' fontSize='large' />
             </Button>
@@ -100,6 +102,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
           </div>
         }
       </div>
+      {openModal && <Modal modal='post' postFormType='create' close={() => setOpenModal(false)} />}
     </nav>
   )
 }

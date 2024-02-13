@@ -25,7 +25,8 @@ const Post: React.FC<PostProps> = ({ edit, anon }) => {
             </div>
             : null}
         </div>
-        <div className='flex flex-col gap-4 xl:gap-2 text-sm'>
+        <div className='flex flex-col gap-2 text-sm'>
+          <h2 className='text-lg'>Title</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Purus gravida quis blandit turpis. Molestie nunc non blandit massa enim nec dui nunc mattis. Scelerisque fermentum dui faucibus in ornare quam viverra. Pharetra et ultrices neque ornare aenean.</p>
           <hr className='border-fade dark:border-fade-dark' />
           <div className='flex justify-start items-center gap-4'>
