@@ -9,16 +9,13 @@ import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 
 import { User } from '@prisma/client'
-import { AddCircle, Home, Login, Logout, Person, Settings, SportsMma } from '@mui/icons-material'
+import { AddCircle, Close, Home, Login, Logout, Person, Settings, SportsMma } from '@mui/icons-material'
 
 import FollowNums from '@/components/profilepage/followNums'
 
 import Button from '@/components/ui/button'
 
-import Close from '@/components/icons/close'
-
 import ThemeTogglerSideMobile from '@/components/nav/themeTogglerSide'
-import Active from '@/components/nav/active'
 
 interface MobileNavProps {
   currentUser: User | null,
@@ -61,7 +58,7 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
         </button>
         <Link href="/"><h1 className='text-3xl text-old-lace uppercase' title='T.I.M.S.' aria-label='T.I.M.S. Home'>t.i.m.s.</h1></Link>
         <Link href={status === 'authenticated' ? `/${currentUser?.username}/settings` : '/login'} title='My Settings'>
-          <Settings className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+          <Settings className='fill-purple dark:fill-old-lace' fontSize='large' />
         </Link>
       </nav>
       <aside className={openMenu ? `fixed h-screen w-screen z-20 bg-purple/50 transition-all duration-300` : `fixed h-screen w-screen -z-20 opacity-100 transition-all duration-300`} aria-label='Side Menu'>
@@ -78,7 +75,7 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
                 />
               }
             </Link>
-            <Close setOpenMenu={setOpenMenu} />
+            <Close className='fill-dark-armor dark:fill-old-lace cursor-pointer' fontSize='large' onClick={() => {setOpenMenu(false)}} />
           </div>
           <div className='px-6 space-y-4'>
             {status === 'authenticated' &&
@@ -95,33 +92,33 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
             <ul className='flex flex-col gap-3 text-xl'>
               <Link className='group relative px-3 py-1 flex justify-start items-end gap-1.5' href="/">
                 <div className={`absolute group-hover:h-full ${active.home ? 'h-full' : 'group-hover:animate-lineDown'} w-1 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-                <Home className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+                <Home className='fill-purple dark:fill-old-lace' fontSize='large' />
                 <li className='capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-150' title='My Home'>my home</li>
               </Link>
               <Link className='group relative px-3 py-1 flex justify-start items-end gap-1.5' href={status === 'authenticated' ? `/${json.username}` : '/login'}>
                 <div className={`absolute group-hover:h-full ${active.profile ? 'h-full' : 'group-hover:animate-lineDown'} w-1 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-                <Person className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+                <Person className='fill-purple dark:fill-old-lace' fontSize='large' />
                 <li className='capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Profile'>my profile</li>
               </Link>
               <Link className='group relative px-3 py-1 flex justify-start items-end gap-1.5' href={status === 'authenticated' ? `/${json.username}/settings` : '/login'}>
                 <div className={`absolute group-hover:h-full ${active.settings ? 'h-full' : 'group-hover:animate-lineDown'} w-1 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-                <Settings className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+                <Settings className='fill-purple dark:fill-old-lace' fontSize='large' />
                 <li className='capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150' title='My Settings'>my settings</li>
               </Link>
               <Link className='group relative px-3 py-1 flex justify-start items-end gap-1.5' href="/">
                 <div className={`absolute group-hover:h-full w-1 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg group-hover:animate-lineDown`}></div>
-                <SportsMma className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+                <SportsMma className='fill-purple dark:fill-old-lace' fontSize='large' />
                 <li className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-150' title='Boundless Courage Home'>boundless courage</li>
               </Link>
               <li className='group relative px-3 py-1 flex justify-start items-end gap-1.5' title={status === 'authenticated' ? 'Log Out' : 'Log In'} onClick={() => status === 'authenticated' ? signOut() : router.push('/login')}>
                 <div className={`absolute group-hover:h-full w-1 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg group-hover:animate-lineDown`}></div>
-                {status === 'authenticated' ? <Logout className='fill-dark-armor dark:fill-old-lace' fontSize='large' /> : <Login className='fill-dark-armor dark:fill-old-lace' fontSize='large' />}
+                {status === 'authenticated' ? <Logout className='fill-purple dark:fill-old-lace' fontSize='large' /> : <Login className='fill-purple dark:fill-old-lace' fontSize='large' />}
                 <p className='capitalize lg:hover:text-purple dark:lg:hover:text-violet transition-all duration-150 cursor-pointer'>{status === 'authenticated' ? 'log out' : 'log in'}</p>
               </li>
               <li>
                 <Button fullWidth large>
                   <p className='text-old-lace'>Post</p>
-                  <AddCircle fontSize='large' sx={{ color: 'oldlace' }} />
+                  <AddCircle className='fill-old-lace' fontSize='large' />
                 </Button>
               </li>
             </ul>

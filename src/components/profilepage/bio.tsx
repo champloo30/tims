@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -29,6 +29,8 @@ interface BioProps {
 }
 
 const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
+  const [openEditProfile, setOpenEditProfile] = useState(false)
+
   const router = useRouter()
   const userJson = JSON.parse(JSON.stringify(user))
   
@@ -125,7 +127,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
         </div>
         {user?.email === currentUser?.email ?
           (
-            <Button title='Edit Profile'>Edit Profile</Button>
+            <Button title='Edit Profile' onClick={() => setOpenEditProfile(true)}>Edit Profile</Button>
           ) :
           (
             <FollowForm currentUser={currentUser} user={user} onSubmit={submit} />

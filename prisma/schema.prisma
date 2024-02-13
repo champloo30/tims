@@ -68,7 +68,8 @@ model Post {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
-  likedIds    String[]    @db.ObjectId
+  liker       String[]    @db.ObjectId
+  liking      String[]    @db.ObjectId
   userId      String      @db.ObjectId
 
   //relations
@@ -83,10 +84,12 @@ model Comment {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
+  liker       String[]    @db.ObjectId
+  liking      String[]    @db.ObjectId
   userId      String      @db.ObjectId
   postId      String      @db.ObjectId
 
   // relations
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post        Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

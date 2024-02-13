@@ -43,33 +43,33 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
         <ul className='flex flex-col gap-1.5'>
           <Link className='group relative px-4 py-2 flex justify-start items-end gap-1.5 hover:bg-fade hover:dark:bg-fade-dark rounded-lg transition duration-300' href="/">
             <div className={`absolute group-hover:h-full ${active.home ? 'h-full' : 'group-hover:animate-lineDown'} w-1.5 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-            <Home className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+            <Home className='fill-purple dark:fill-old-lace' fontSize='large' />
             <li className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300' title='My Home'>my home</li>
           </Link>
           <Link className='group relative px-4 py-2 flex justify-start items-end gap-1.5 hover:bg-fade hover:dark:bg-fade-dark rounded-lg transition-all duration-300' href={status === 'authenticated' ? `/${json.username}` : '/login'}>
           <div className={`absolute group-hover:h-full ${active.profile ? 'h-full' : 'group-hover:animate-lineDown'} w-1.5 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-            <Person className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+            <Person className='fill-purple dark:fill-old-lace' fontSize='large' />
             <li className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300' title='My Profile'>my profile</li>
           </Link>
           <Link className='group relative px-4 py-2 flex justify-start items-end gap-1.5 hover:bg-fade hover:dark:bg-fade-dark rounded-lg transition-all duration-300' href={status === 'authenticated' ? `/${json.username}/settings` : '/login'}>
           <div className={`absolute group-hover:h-full ${active.settings ? 'h-full' : 'group-hover:animate-lineDown'} w-1.5 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg`}></div>
-            <Settings className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+            <Settings className='fill-purple dark:fill-old-lace' fontSize='large' />
             <li className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300' title='My Settings'>my settings</li>
           </Link>
           <div className='group relative px-4 py-2 flex justify-start items-end gap-1.5 hover:bg-fade hover:dark:bg-fade-dark rounded-lg transition-all duration-300'>
             <div className='absolute group-hover:h-full w-1.5 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg group-hover:animate-lineDown'></div>
-            <SportsMma className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+            <SportsMma className='fill-purple dark:fill-old-lace' fontSize='large' />
             <li className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300' title='Boundless Courage Home'>boundless courage</li>
           </div>
           <li className='group relative px-4 py-2 flex justify-start items-end gap-1.5 hover:bg-fade hover:dark:bg-fade-dark rounded-lg transition-all duration-300 cursor-pointer' title={status === 'authenticated' ? 'Log Out' : 'Log In'} onClick={() => status === 'authenticated' ? signOut() : router.push('/login')}>
             <div className='absolute group-hover:h-full w-1.5 left-0 bottom-0 bg-purple dark:bg-violet rounded-l-lg group-hover:animate-lineDown'></div>
-            {status === 'authenticated' ? <Logout className='fill-dark-armor dark:fill-old-lace' fontSize='large' /> : <Login className='fill-dark-armor dark:fill-old-lace' fontSize='large' />}
+            {status === 'authenticated' ? <Logout className='fill-purple dark:fill-old-lace' fontSize='large' /> : <Login className='fill-purple dark:fill-old-lace' fontSize='large' />}
             <p className='text-xl capitalize lg:group-hover:text-purple dark:lg:group-hover:text-violet transition-all duration-300'>{status === 'authenticated' ? 'log out' : 'log in'}</p>
           </li>
           <li>
             <Button fullWidth large>
               <p className='text-old-lace'>Post</p>
-              <AddCircle className='fill-dark-armor dark:fill-old-lace' fontSize='large' />
+              <AddCircle className='fill-old-lace' fontSize='large' />
             </Button>
           </li>
         </ul>
