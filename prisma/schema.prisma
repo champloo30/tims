@@ -64,8 +64,9 @@ model Post {
   //post info
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   title       String?
-  body        String
+  content     String
   draft       Boolean?
+  anonymous   Boolean?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 

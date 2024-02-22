@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 
 import { useSession } from 'next-auth/react'
-import { User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
@@ -15,6 +15,7 @@ import AddUsername, { UsernameData } from '@/components/ui/form/usernameForm'
 
 interface MainProps {
   currentUser: User | null
+  posts: Post
   params: string
 }
 

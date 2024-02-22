@@ -60,51 +60,6 @@ const handler = async (req: Request) => {
     console.log(error);
     return new NextResponse('Something went wrong', { status: 405 })
   }
-  
-
-  // try {
-  //   const currentUser = await getCurrentUser()
-  //   const fetchedUser = await getUser(params.username)
-  //   const userId = fetchedUser?.id
-
-  //   if (!userId || typeof userId !== 'string') {
-  //     throw new Error('Invalid ID')
-  //   }
-
-  //   const user = await prisma.user.findUnique({
-  //     where: {
-  //       id: userId
-  //     }
-  //   })
-
-  //   if (!user) {
-  //     throw new Error('Invalid ID')
-  //   }
-
-  //   let updatedFollowingIds = [...(user.followingIds || [])]
-
-  //   if (req.method === 'POST') {
-  //     updatedFollowingIds.push(userId)
-  //   }
-
-  //   if (req.method === 'DELETE') {
-  //     updatedFollowingIds = updatedFollowingIds.filter(followingId => followingId !== userId)
-  //   }
-
-  //   const updatedUser = prisma.user.update({
-  //     where: {
-  //       id: currentUser?.id
-  //     },
-  //     data: {
-  //       followingIds: updatedFollowingIds
-  //     }
-  //   })
-
-  //   return NextResponse.json(updatedUser)
-  // } catch (error) {
-  //   console.log(error);
-  //   return new NextResponse('Something went wrong', { status: 405 })
-  // }
 }
 
 export { handler as POST, handler as DELETE }

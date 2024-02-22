@@ -102,7 +102,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
           </div>
         }
       </div>
-      {openModal && <Modal modal='post' postFormType='create' close={() => setOpenModal(false)} />}
+      {openModal && <Modal currentUser={currentUser} modal='post' setOpenModal={setOpenModal} />}
     </nav>
   )
 }

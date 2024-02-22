@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import PostFilter from '@/components/profilepage/postFilter'
-import Post from '@/components/ui/post'
+import GetPost from '@/components/ui/post'
 import { User } from '@prisma/client'
 
 interface PostsProps {
@@ -15,10 +15,10 @@ const Posts:React.FC<PostsProps> = ({ currentUser }) => {
   return (
     <>
       <PostFilter filter={active} />
-      <Post edit={true} anon={false} />
-      <Post edit={true} anon={true} />
-      <Post edit={true} anon={false} />
-      <Post edit={true} anon={true} />
+      {/* <GetPost edit={true} anon={false} />
+      <GetPost edit={true} anon={true} />
+      <GetPost edit={true} anon={false} />
+      <GetPost edit={true} anon={true} /> */}
     </>
   )
 }

@@ -1,12 +1,19 @@
 import React from 'react'
 import { ChatBubble, Delete, Edit, Favorite } from '@mui/icons-material'
 
-interface PostProps {
-  edit: boolean,
-  anon: boolean
+interface GetPostProps {
+  key: string
+  edit?: boolean,
+  anon?: boolean,
+  title?: string,
+  content: string,
+  createdAt: Date,
+  updatedAt?: Date,
+  liker?: string,
+  liked?: string
 }
 
-const Post: React.FC<PostProps> = ({ edit, anon }) => {
+const GetPost: React.FC<GetPostProps> = ({ edit, anon }) => {
   return (
     <div className='h-fit w-full flex justify-center items-center px-4 xl:px-32 py-4 gap-2 xl:gap-8 bg-old-lace dark:bg-raisin border-b-4 border-purple-dark dark:border-old-lace'>
       <div className='flex flex-col justify-center items-start gap-2'>
@@ -47,4 +54,4 @@ const Post: React.FC<PostProps> = ({ edit, anon }) => {
   )
 }
 
-export default Post
+export default GetPost
