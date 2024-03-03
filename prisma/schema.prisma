@@ -72,10 +72,10 @@ model Post {
 
   liker       String[]    @db.ObjectId
   liking      String[]    @db.ObjectId
-  userId      String      @db.ObjectId
+  userId      String      
 
   //relations
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [username], onDelete: Cascade)
   comments    Comment[]
 }
 

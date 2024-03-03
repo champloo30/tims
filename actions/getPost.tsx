@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import prisma from '@/libs/prismadb'
 
-export async function getPosts(param: string) {
+export async function getPosts() {
   try {
 
     const allPosts = await prisma.post.findMany()

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import PostFilter from '@/components/profilepage/postFilter'
-import GetPost from '@/components/ui/post'
+import GetPost from '@/components/ui/getPost'
 import { User } from '@prisma/client'
 
 interface PostsProps {

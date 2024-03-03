@@ -33,13 +33,15 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
   const json = JSON.parse(JSON.stringify(currentUser))
 
   useEffect(() => {
-    pathname === '/' && setActive({ home: true, profile: false, settings: false })
-    pathname === `/${json.username}` && setActive({ home: false, profile: true, settings: false })
-    pathname === `/${json.username}/settings` && setActive({ home: false, profile: false, settings: true })
-  }, [json.username, pathname])
+    if (json) {
+      pathname === '/' && setActive({ home: true, profile: false, settings: false })
+      pathname === `/${json.username}` && setActive({ home: false, profile: true, settings: false })
+      pathname === `/${json.username}/settings` && setActive({ home: false, profile: false, settings: true })
+    }
+  }, [json, pathname])
 
   return (
-    <nav className='fixed h-screen w-[25vw] z-20 p-6 hidden xl:flex flex-col justify-between bg-old-lace dark:bg-raisin border-r-4 border-purple-dark dark:border-old-lace'>
+    <nav className='fixed h-screen w-[25vw] z-20 p-6 hidden xl:flex flex-col justify-between bg-old-lace dark:bg-raisin border-r-4 border-dark-armor dark:border-old-lace'>
       <div className='space-y-4'>
         <Link href="/"><h1 className='text-5xl text-purple dark:text-violet uppercase' title='T.I.M.S.' aria-label='T.I.M.S. Home'>t.i.m.s.</h1></Link>
         <ul className='flex flex-col gap-1.5'>

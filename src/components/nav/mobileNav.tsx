@@ -18,8 +18,7 @@ import Button from '@/components/ui/button'
 import ThemeTogglerSideMobile from '@/components/nav/themeTogglerSide'
 
 interface MobileNavProps {
-  currentUser: User | null,
-  params: string
+  currentUser: User | null
 }
 
 const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
@@ -37,10 +36,12 @@ const MobileNav:React.FC<MobileNavProps> = ({ currentUser }) => {
   const json = JSON.parse(JSON.stringify(currentUser))
 
   useEffect(() => {
-    pathname === '/' && setActive({ home: true, profile: false, settings: false })
-    pathname === `/${json.username}` && setActive({ home: false, profile: true, settings: false })
-    pathname === `/${json.username}/settings` && setActive({ home: false, profile: false, settings: true })
-  }, [json.username, pathname])
+    if (json) {
+      pathname === '/' && setActive({ home: true, profile: false, settings: false })
+      pathname === `/${json.username}` && setActive({ home: false, profile: true, settings: false })
+      pathname === `/${json.username}/settings` && setActive({ home: false, profile: false, settings: true })
+    }
+  }, [json, pathname])
 
   return (
     <section className='relative xl:hidden' aria-label='navigation'>

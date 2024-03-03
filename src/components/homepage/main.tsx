@@ -14,12 +14,25 @@ import MobileNav from '@/components/nav/mobileNav'
 import AddUsername, { UsernameData } from '@/components/ui/form/usernameForm'
 
 interface MainProps {
-  currentUser: User | null
-  posts: Post
-  params: string
+  currentUser: User | null,
+  posts: Post[],
+  params: string,
+  user: User | null
 }
 
-const Main:React.FC<MainProps> = ({ currentUser, params }) => {
+export interface PostProps {
+  id: string,
+  userId: string,
+  title: string | null,
+  content: string,
+  draft: boolean | null,
+  anonymous: boolean | null,
+  updatedAt: Date,
+  liker: string[] | null,
+  liking: string[] | null
+}
+
+const Main:React.FC<MainProps> = ({ currentUser, posts, params, user }) => {
   const { status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const json = JSON.parse(JSON.stringify(currentUser))
@@ -44,8 +57,8 @@ const Main:React.FC<MainProps> = ({ currentUser, params }) => {
         : null
       }
       <DesktopNav currentUser={currentUser} />
-      <MobileNav currentUser={currentUser} params={params} />
-      <MyHome currentUser={currentUser} />
+      <MobileNav currentUser={currentUser} />
+      <MyHome currentUser={currentUser} posts={posts} user={user} />
     </main>
   )
 }
