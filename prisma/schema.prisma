@@ -21,6 +21,8 @@ model User {
   hashedPassword  String?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+  likedPosts      String[]      @db.ObjectId
+  likedComments   String[]      @db.ObjectId
 
   //profile info
   bio             String?
@@ -62,36 +64,35 @@ model Account {
 
 model Post {
   //post info
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  title       String?
-  content     String
-  draft       Boolean?
-  anonymous   Boolean?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  title         String?
+  content       String
+  draft         Boolean?
+  anonymous     Boolean?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
-  liker       String[]    @db.ObjectId
-  liking      String[]    @db.ObjectId
-  userId      String      
+  likingUsers   String[]    @db.ObjectId
+  userId        String      
 
   //relations
-  user        User        @relation(fields: [userId], references: [username], onDelete: Cascade)
-  comments    Comment[]
+  user          User        @relation(fields: [userId], references: [username], onDelete: Cascade)
+  comments      Comment[]
 }
 
 model Comment {
   //comment info
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  body        String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  body          String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
-  liker       String[]    @db.ObjectId
-  liking      String[]    @db.ObjectId
-  userId      String      @db.ObjectId
-  postId      String      @db.ObjectId
+  replies       String[]    @db.ObjectId
+  likingUsers   String[]    @db.ObjectId
+  userId        String      @db.ObjectId
+  postId        String      @db.ObjectId
 
   // relations
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post        Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post          Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

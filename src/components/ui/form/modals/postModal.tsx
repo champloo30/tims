@@ -46,7 +46,6 @@ const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setO
     .then(() => {
       setOpenModal(false)
       toast.success('Post created')
-      router.push('/')
       router.refresh()
     })
     .catch(() => {toast.error('Something went wrong')})

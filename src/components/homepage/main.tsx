@@ -16,8 +16,7 @@ import AddUsername, { UsernameData } from '@/components/ui/form/usernameForm'
 interface MainProps {
   currentUser: User | null,
   posts: Post[],
-  params: string,
-  user: User | null
+  params: string
 }
 
 export interface PostProps {
@@ -32,7 +31,7 @@ export interface PostProps {
   liking: string[] | null
 }
 
-const Main:React.FC<MainProps> = ({ currentUser, posts, params, user }) => {
+const Main:React.FC<MainProps> = ({ currentUser, posts, params }) => {
   const { status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const json = JSON.parse(JSON.stringify(currentUser))
@@ -58,7 +57,7 @@ const Main:React.FC<MainProps> = ({ currentUser, posts, params, user }) => {
       }
       <DesktopNav currentUser={currentUser} />
       <MobileNav currentUser={currentUser} />
-      <MyHome currentUser={currentUser} posts={posts} user={user} />
+      <MyHome currentUser={currentUser} posts={posts} />
     </main>
   )
 }

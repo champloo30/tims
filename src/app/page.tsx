@@ -10,20 +10,20 @@ import { User } from '@prisma/client'
 // import { getPosts } from '../../actions/getPosts'
 
 interface HomeProps {
-  user: User | null
   params: { url: string }
 }
 
-const Home:React.FC<HomeProps> = async ({ params, user }) => {
+const Home:React.FC<HomeProps> = async ({ params }) => {
   const currentUser = await getCurrentUser()
-  const allPosts = await prisma.post.findMany()
-  user = await getUser(allPosts[0].userId)
+  const allPosts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
   const url = params.url
 
-  console.log(allPosts);
-
   return (
-    <Main currentUser={currentUser} params={url} posts={allPosts} user={user} />
+    <Main currentUser={currentUser} params={url} posts={allPosts} />
   )
 }
 
