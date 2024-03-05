@@ -68,12 +68,12 @@ const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setO
 
   return (
     <div className='h-[90%] w-2/3 p-8 flex flex-col justify-evenly bg-old-lace dark:bg-raisin shadow-xl'>
-      <div className='w-full flex justify-end' onClick={close}>
+      <div className='w-full flex justify-end cursor-pointer' onClick={close}>
         <Close />
       </div>
       <div className='w-full flex justify-evenly text-3xl'>
-        <button className='px-8 py-4 hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150' onClick={() => switchToFeed()}>Post</button>
-        <button className='px-8 py-4 hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150' onClick={() => switchToBlog()}>Blog</button>
+        <button className={`px-16 py-4 ${feed && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToFeed()}>Post</button>
+        <button className={`px-16 py-4 ${blog && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToBlog()}>Blog</button>
       </div>
       <div className='h-3/4 w-full'>
         {blog && <BlogForm formtype={formType} onSubmit={createBlogSubmit} isLoading={isLoading} />}

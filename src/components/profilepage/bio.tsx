@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
@@ -21,14 +21,17 @@ import TikTok from '@/components/icons/socialMedia/tiktok'
 import Twitter from '@/components/icons/socialMedia/twitter'
 
 import FollowNums from './followNums'
+import PostNums from './postNums'
 
 interface BioProps {
   currentUser: User
+  posts: Post[]
+  anonPosts: Post[]
   user: User | null
   params: string
 }
 
-const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
+const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
   const [openEditProfile, setOpenEditProfile] = useState(false)
 
   const router = useRouter()
@@ -79,14 +82,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, user }) => {
               <p className='text-sm text-purple dark:text-violet'>@{userJson.username}</p>
             </div>
             <ul className='flex gap-4'>
-              <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
-                <span>100</span>
-                <span className='text-purple dark:text-violet'>Posts</span>
-              </li>
-              <li className='flex flex-col sm:flex-row justify-start items-start sm:gap-1'>
-                <span>12</span>
-                <span className='text-purple dark:text-violet'>Anon Posts</span>
-              </li>
+              <PostNums posts={posts} anonPosts={anonPosts} />
               <FollowNums user={user} />
             </ul>
             <p className='text-sm'>{userJson.bio}</p>

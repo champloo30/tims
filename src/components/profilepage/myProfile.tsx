@@ -3,18 +3,21 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 
 import Bio from '@/components/profilepage/bio'
 import Posts from '@/components/profilepage/posts'
 
 interface MyProfileProps {
   currentUser: User | null
+  posts: Post[]
+  anonPosts: Post[]
+  draftPosts: Post[]
   user: User | null
   params: string
 }
 
-const MyProfile:React.FC<MyProfileProps> = ({ currentUser, user, params }) => {
+const MyProfile:React.FC<MyProfileProps> = ({ currentUser, posts, anonPosts, draftPosts, user, params }) => {
   const router = useRouter()
 
   useEffect(() => {
@@ -25,12 +28,12 @@ const MyProfile:React.FC<MyProfileProps> = ({ currentUser, user, params }) => {
   }, [currentUser, router])
 
   return (
-    <section className='relative h-screen xl:w-[75vw] top-14 xl:top-0 xl:left-[25vw] bg-old-lace' aria-label='My Profile'>
-      <div className='h-full w-full'>
+    <section className='relative h-screen xl:w-[75vw] z-40 top-14 xl:top-0 xl:left-[25vw] bg-old-lace dark:bg-raisin' aria-label='My Profile'>
+      <div className='relative h-full w-full'>
         {currentUser && 
-          <Bio currentUser={currentUser} user={user} params={params} />
+          <Bio currentUser={currentUser} posts={posts} anonPosts={anonPosts} user={user} params={params} />
         }
-        <Posts currentUser={currentUser} />
+        <Posts currentUser={currentUser} posts={posts} user={user} anonPosts={anonPosts} draftPosts={draftPosts} />
       </div>
     </section>
   )

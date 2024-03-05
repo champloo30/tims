@@ -8,6 +8,7 @@ import { Post, User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 interface GetPostProps {
   id: string,
@@ -25,6 +26,7 @@ interface GetPostProps {
 
 const GetPost: React.FC<GetPostProps> = ({ id, user, edit, anon, title, content, createdAt, likingUsers, currentUser, posts }) => {
   const postJson = JSON.parse(JSON.stringify(posts))
+  const { status } = useSession()
   const router = useRouter()
 
   async function submit(formData: LikeData) {
@@ -53,13 +55,13 @@ const GetPost: React.FC<GetPostProps> = ({ id, user, edit, anon, title, content,
     <div className='h-fit w-full flex justify-start items-center px-4 xl:px-32 py-4 gap-2 xl:gap-8 bg-old-lace dark:bg-raisin border-b-4 border-dark-armor dark:border-old-lace'>
       <div className='w-full flex flex-col justify-center items-start gap-2'>
         <div className='w-full flex justify-between items-center gap-2'>
-          <div className={`group p-2 flex justify-start xl:justify-center items-end xl:items-center gap-2 ${!anon && 'hover:bg-fade dark:hover:bg-fade-dark cursor-pointer'} rounded-md transition ease-in duration-150`} title={anon ? '' : `View @${user}`}>
+          <a className={`group p-2 flex justify-start xl:justify-center items-end xl:items-center gap-2 ${!anon && 'hover:bg-fade dark:hover:bg-fade-dark cursor-pointer'} rounded-md transition ease-in duration-150`} href={`/${user}`} title={anon ? '' : `View @${user}`}>
             <div className='h-14 w-14 bg-purple dark:bg-violet rounded-full'></div>
             <div className='px-1.5 py-1 flex flex-col items-start'>
               <p className='text-lg'>{anon ? `Anonymous` : `John Doe`}</p>
               <p className={`${!anon && 'text-xs group-hover:text-purple dark:group-hover:text-violet group-hover:underline transition ease-in duration-150'}`}>{anon ? `@_anonymous` : `@${user}`}</p>
             </div>
-          </div>
+          </a>
           {edit ? 
             <div className='flex justify-center items-center gap-2'>
               <Edit className='fill-purple dark:fill-violet hover:scale-125 cursor-pointer transition ease-in duration-150' titleAccess='Edit' />
@@ -77,11 +79,23 @@ const GetPost: React.FC<GetPostProps> = ({ id, user, edit, anon, title, content,
             <p className='w-fit px-2 py-1.5 bg-fade dark:bg-fade-dark rounded-lg'>{dateFormatter(createdAt)}</p>
             <div className='h-1 w-1 bg-dark-armor dark:bg-old-lace rounded-full'></div>
             <div className='space-x-2'>
-              <ChatBubble className='fill-purple dark:fill-white hover:scale-125 transition ease-in duration-150 cursor-pointer' titleAccess='Comment' />
+              {
+                status === 'authenticated' ? 
+                <ChatBubble className='fill-purple dark:fill-white hover:scale-125 transition ease-in duration-150 cursor-pointer' titleAccess='Comment' /> :
+                <button onClick={() => router.push('/login')}>
+                  <ChatBubble className='fill-purple dark:fill-white hover:scale-125 transition ease-in duration-150 cursor-pointer' titleAccess='Comment' />
+                </button>
+              }
               <span className='text-purple/50 dark:text-old-lace/30'>2.7k</span>
             </div>
             <div className='flex items-center gap-2'>
-              <LikeForm currentUser={currentUser} onSubmit={submit} id={id} />
+              {
+                status === 'authenticated' ? 
+                <LikeForm currentUser={currentUser} onSubmit={submit} id={id} /> :
+                <button onClick={() => router.push('/login')}>
+                  <Favorite className='fill-purple dark:fill-white hover:scale-125 transition ease-in duration-150 cursor-pointer' titleAccess='Like' />
+                </button>
+              }
               <span className='text-purple/50 dark:text-old-lace/30'>{likingUsers !== undefined && likingUsers > 0 ? likingUsers : null}</span>
             </div>
           </div>
