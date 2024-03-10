@@ -86,7 +86,7 @@ const Posts:React.FC<PostsProps> = ({ currentUser, user, posts, anonPosts, draft
             
             return (
               <GetPost 
-                key={post.id}
+              key={post.id}
                 id={post.id} 
                 user={post.userId}
                 anon={post.anonymous} 

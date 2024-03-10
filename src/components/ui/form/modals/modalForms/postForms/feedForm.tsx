@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
-import Button from '../../button'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import Button from '../../../../button'
+import Modal from '@/components/ui/modal'
+import { User } from '@prisma/client'
 
 export interface FeedFormProps {
+  currentUser: User | null
   formtype: 'create' | 'edit' | undefined,
   onSubmit: (data: FeedData) => void,
   isLoading: boolean
+  setOpenModal: Dispatch<SetStateAction<boolean>>
 }
 
 export interface FeedData {
   anonymous?: boolean,
-  content: string
+  content: string,
+  draft: boolean
 }
 
-const FeedForm:React.FC<FeedFormProps> = ({ formtype, onSubmit, isLoading }) => {
+const FeedForm:React.FC<FeedFormProps> = ({ currentUser, formtype, onSubmit, isLoading, setOpenModal }) => {
   const [formData, setFormData] = useState<FeedData>({
     anonymous: false,
-    content: ''
+    content: '',
+    draft: false
   })
+
   const [invalid, setInvalid] = useState(false)
+
+  const [closeModal, setCloseModal] = useState(false)
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, checked } = e.target
@@ -39,7 +48,31 @@ const FeedForm:React.FC<FeedFormProps> = ({ formtype, onSubmit, isLoading }) => 
       onSubmit(formData)
       setFormData({
         anonymous: false,
-        content: ''
+        content: '',
+        draft: false
+      })
+    }
+  }
+
+  function handleDraft() {
+    if (formData.draft === false) {
+      setFormData({...formData, draft: true})
+    }
+
+    if (formData.draft === true) {
+      onSubmit(formData)
+      setFormData({
+        anonymous: false,
+        content: '',
+        draft: false
+      })
+    } else {
+      setFormData({...formData, draft: true})
+      onSubmit(formData)
+      setFormData({
+        anonymous: false,
+        content: '',
+        draft: false
       })
     }
   }
@@ -69,7 +102,11 @@ const FeedForm:React.FC<FeedFormProps> = ({ formtype, onSubmit, isLoading }) => 
           onChange={handleInputChange}
         />
       </div>
-      <Button title={formtype === 'create' ? 'Post Feed' : 'Update Feed'}>{formtype === 'create' ? 'Post' : 'Update'}</Button>
+      <div className='flex gap-4'>
+        <Button title={formtype === 'create' ? 'Post Feed' : 'Update Feed'}>{formtype === 'create' ? 'Post' : 'Update'}</Button>
+        <Button type='button' onClick={() => setCloseModal(true)}>Cancel</Button>
+      </div>
+      {closeModal && <Modal currentUser={currentUser} modal='close' setOpenModal={setOpenModal} postType={'blog'} submit={handleDraft} />}
     </form>
   )
 }

@@ -8,10 +8,12 @@ interface ButtonProps {
   outline?: boolean,
   secondary?: boolean,
   title?: string, 
-  onClick?: () => void
+  onClick?: () => void,
+  onSubmit?: (e: React.FormEventHandler<HTMLButtonElement>) => void,
+  type?: 'submit' | 'button' | 'reset'
 }
 
-const Button: React.FC<ButtonProps> = ({ children, disabled, fullWidth, large, outline, secondary, title, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ children, disabled, fullWidth, large, outline, secondary, title, onClick, onSubmit, type }) => {
   return (
     <button 
       className={`
@@ -27,6 +29,8 @@ const Button: React.FC<ButtonProps> = ({ children, disabled, fullWidth, large, o
       disabled={disabled} 
       title={title}
       onClick={onClick}
+      onSubmit={onSubmit}
+      type={type}
     >
       {children}
     </button>

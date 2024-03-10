@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ChatBubble, Delete, Edit, Favorite } from '@mui/icons-material'
 
-import { dateFormatter } from '@/libs/dateFormatter'
+import { dateFormatter } from '@/libs/formatter'
 import LikeForm, { LikeData } from './form/likeForm'
 import { Post, User } from '@prisma/client'
 import axios from 'axios'
@@ -59,7 +59,7 @@ const GetPost: React.FC<GetPostProps> = ({ id, user, edit, anon, title, content,
             <div className='h-14 w-14 bg-purple dark:bg-violet rounded-full'></div>
             <div className='px-1.5 py-1 flex flex-col items-start'>
               <p className='text-lg'>{anon ? `Anonymous` : `John Doe`}</p>
-              <p className={`${!anon && 'text-xs group-hover:text-purple dark:group-hover:text-violet group-hover:underline transition ease-in duration-150'}`}>{anon ? `@_anonymous` : `@${user}`}</p>
+              <p className={`text-xs ${!anon && 'group-hover:text-purple dark:group-hover:text-violet group-hover:underline transition ease-in duration-150'}`}>{anon ? `@_anonymous` : `@${user}`}</p>
             </div>
           </a>
           {edit ? 

@@ -7,21 +7,22 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Close } from '@mui/icons-material'
 
-import BlogForm, { BlogData } from '@/components/ui/form/modals/blogForm'
-import FeedForm, { FeedData } from '@/components/ui/form/modals/feedForm'
 import { User } from '@prisma/client'
+import Modal from '../../modal'
+import BlogForm, { BlogData } from './modalForms/postForms/blogForm'
+import FeedForm, { FeedData } from './modalForms/postForms/feedForm'
 
 interface postModalProps {
   currentUser: User | null
   formType?: 'create' | 'edit' | undefined,
-  close: () => void,
   setOpenModal: Dispatch<SetStateAction<boolean>>
 }
 
-const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setOpenModal }) => {
+const PostModal:React.FC<postModalProps> = ({ currentUser, formType, setOpenModal }) => {
   const [feed, setFeed] = useState(true)
   const [blog, setBlog] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [closeModal, setCloseModal] = useState(false)
 
   const router = useRouter()
 
@@ -45,7 +46,7 @@ const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setO
     axios.post(`/api/posts`, formData)
     .then(() => {
       setOpenModal(false)
-      toast.success('Post created')
+      formData.draft === false ? toast.success('Post created') : toast.success('Draft created')
       router.refresh()
     })
     .catch(() => {toast.error('Something went wrong')})
@@ -59,7 +60,6 @@ const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setO
     .then(() => {
       setOpenModal(false)
       toast.success('Post created')
-      router.push('/')
       router.refresh()
     })
     .catch(() => {toast.error('Something went wrong')})
@@ -68,16 +68,13 @@ const PostModal:React.FC<postModalProps> = ({ currentUser, formType, close, setO
 
   return (
     <div className='h-[90%] w-2/3 p-8 flex flex-col justify-evenly bg-old-lace dark:bg-raisin shadow-xl'>
-      <div className='w-full flex justify-end cursor-pointer' onClick={close}>
-        <Close />
-      </div>
-      <div className='w-full flex justify-evenly text-3xl'>
-        <button className={`px-16 py-4 ${feed && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToFeed()}>Post</button>
-        <button className={`px-16 py-4 ${blog && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToBlog()}>Blog</button>
+      <div className='w-full flex gap-4 text-3xl'>
+        <button className={`w-full py-4 ${feed && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToFeed()}>Post</button>
+        <button className={`w-full py-4 ${blog && 'bg-fade dark:bg-fade-dark'} hover:bg-fade dark:hover:bg-fade-dark rounded-lg ease-in duration-150`} onClick={() => switchToBlog()}>Blog</button>
       </div>
       <div className='h-3/4 w-full'>
-        {blog && <BlogForm formtype={formType} onSubmit={createBlogSubmit} isLoading={isLoading} />}
-        {feed && <FeedForm formtype={formType} onSubmit={createFeedSubmit} isLoading={isLoading} />}
+        {blog && <BlogForm currentUser={currentUser} formtype={formType} onSubmit={createBlogSubmit} isLoading={isLoading} setOpenModal={setOpenModal} />}
+        {feed && <FeedForm currentUser={currentUser} formtype={formType} onSubmit={createFeedSubmit} isLoading={isLoading} setOpenModal={setOpenModal} />}
       </div>
     </div>
   )

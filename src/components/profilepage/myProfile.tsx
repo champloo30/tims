@@ -28,7 +28,7 @@ const MyProfile:React.FC<MyProfileProps> = ({ currentUser, posts, anonPosts, dra
   }, [currentUser, router])
 
   return (
-    <section className='relative h-screen xl:w-[75vw] z-40 top-14 xl:top-0 xl:left-[25vw] bg-old-lace dark:bg-raisin' aria-label='My Profile'>
+    <section className='relative h-screen xl:w-[75vw] top-14 xl:top-0 xl:left-[25vw] bg-old-lace dark:bg-raisin' aria-label='My Profile'>
       <div className='relative h-full w-full'>
         {currentUser && 
           <Bio currentUser={currentUser} posts={posts} anonPosts={anonPosts} user={user} params={params} />

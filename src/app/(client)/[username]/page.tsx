@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 import prisma from '@/libs/prismadb'
 
@@ -8,8 +8,13 @@ import getUser from '../../../../actions/getUser'
 import MyProfile from '@/components/profilepage/myProfile'
 import DesktopNav from '@/components/nav/desktopNav'
 import MobileNav from '@/components/nav/mobileNav'
+import Modal from '@/components/ui/modal'
 
-const Home = async ({ params }: { params: { username: string } }) => {
+interface ProfileProps {
+  params: { username: string }
+}
+
+const Home: React.FC<ProfileProps> = async ({ params }) => {
   const currentUser = await getCurrentUser()
 
   // get all user posts
@@ -43,7 +48,7 @@ const Home = async ({ params }: { params: { username: string } }) => {
       id: 'desc'
     }
   })
-  
+
   const user = await getUser(params.username)
   const username = params.username
 
