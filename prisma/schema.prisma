@@ -21,15 +21,20 @@ model User {
   hashedPassword  String?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+  followers       String[]      @db.ObjectId
+  following       String[]      @db.ObjectId
   likedPosts      String[]      @db.ObjectId
   likedComments   String[]      @db.ObjectId
 
   //profile info
   bio             String?
   website         String?
-  socials         String[]
-  followers       String[]      @db.ObjectId
-  following       String[]      @db.ObjectId
+  facebook        String?
+  instagram       String?
+  linkedin        String?
+  tiktok          String?
+  twitter         String?
+  youtube         String?
 
   //relations
   role            Role          @default(USER)

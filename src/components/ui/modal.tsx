@@ -6,6 +6,7 @@ import PostModal from '@/components/ui/form/modals/postModal'
 import { User } from '@prisma/client'
 import CloseModal from './form/modals/closeModal'
 import EditProfile from './form/modals/editProfileModal'
+import { ProfileData } from './form/modals/modalForms/editProfileForm'
 
 interface ModalProps {
   currentUser: User | null

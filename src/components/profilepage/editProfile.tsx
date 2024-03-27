@@ -13,8 +13,8 @@ interface EditProfileProps {
 }
 
 const EditProfile:React.FC<EditProfileProps> = ({ currentUser }) => {
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
   const json = JSON.parse(JSON.stringify(currentUser))
   
   async function submit(formData: ProfileData) {

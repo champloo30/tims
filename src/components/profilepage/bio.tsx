@@ -23,6 +23,7 @@ import Twitter from '@/components/icons/socialMedia/twitter'
 import FollowNums from './followNums'
 import PostNums from './postNums'
 import Modal from '../ui/modal'
+import { FacebookRounded } from '@mui/icons-material'
 
 interface BioProps {
   currentUser: User
@@ -95,12 +96,12 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                     <a className='lg:hover:text-purple dark:lg:hover:text-violet lg:hover:underline transition-all ease-in duration-150' href={`https://${userJson.website}`} target="_blank" rel="noopener noreferrer" title={`To ${userJson.website}`}>{userJson.website}</a>
                   </div>
                 }
-                {userJson.socials &&
-                  <div className='flex gap-2'>
+                {userJson.facebook !== '' || userJson.instagram !== '' || userJson.linkedin !== '' || userJson.tiktok !== '' || userJson.twitter !== '' || userJson.youtube !== '' ?
+                  <div className='flex items-center gap-2'>
                     <ShareSocial />
                     <ul className='flex items-center gap-2'>
                       {userJson.facebook && 
-                        <li><a href={userJson.facebook} target="_blank" rel="noopener noreferrer"><Facebook /></a></li>
+                        <li><a href={userJson.facebook} target="_blank" rel="noopener noreferrer"><FacebookRounded /></a></li>
                       }
                       {userJson.instagram && 
                         <li><a href={userJson.instagram} target="_blank" rel="noopener noreferrer"><Instagram /></a></li>
@@ -119,6 +120,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                       }
                     </ul>
                   </div>
+                  : null
                 }
               </div>
             </div>
