@@ -1,6 +1,7 @@
 'use client'
 
 import Button from '@/components/ui/button'
+import { Info, InfoOutlined } from '@mui/icons-material'
 import { User } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import React, { Dispatch, SetStateAction, useState } from 'react'
@@ -48,6 +49,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     youtube: currentUser?.youtube === '' ? false : true
   })
 
+  // invalid states
   const [invalidUsername, setInvalidUsername] = useState(false)
   const [invalidFacebook, setInvalidFacebook] = useState(false)
   const [invalidInstagram, setInvalidInstagram] = useState(false)
@@ -55,6 +57,21 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
   const [invalidTikTok, setInvalidTikTok] = useState(false)
   const [invalidTwitter, setInvalidTwitter] = useState(false)
   const [invalidYouTube, setInvalidYouTube] = useState(false)
+
+  const [showInfo, setShowInfo] = useState(false)
+
+  // username state checks
+  const [usernameRegexCheck, setUsernameRegexCheck] = useState(false)
+  const [minValCheck, setMinValCheck] = useState(false)
+  const [maxValCheck, setMaxValCheck] = useState(false)
+
+  // socials state regex checks
+  const [facebookRegexCheck, setFacebookRegexCheck] = useState(false)
+  const [instagramRegexCheck, setInstagramRegexCheck] = useState(false)
+  const [linkedinRegexCheck, setLinkedInRegexCheck] = useState(false)
+  const [tiktokRegexCheck, setTiktokRegexCheck] = useState(false)
+  const [twitterRegexCheck, setTwitterRegexCheck] = useState(false)
+  const [youtubeRegexCheck, setYoutubeRegexCheck] = useState(false)
 
   const router = useRouter()
 
@@ -71,12 +88,75 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     setFormData({ ...formData, [name]: value })
   }
 
+  // username checks
+  const usernameRegex = /^[a-z0-9_\.]+$/
+  const minValue = 6
+  const maxValue = 30
+  const usernameSuccess = 'Username is valid'
+  const usernameError = 'Username is invalid'
+
+  function handleUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = usernameRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setUsernameRegexCheck(true)
+    } else {
+      setUsernameRegexCheck(false)
+    }
+
+    // min value check
+    if (minValue <= value.length) {
+      setMinValCheck(true)
+    } else {
+      setMinValCheck(false)
+    }
+    
+    // max value check
+    if (maxValue >= value.length) {
+      setMaxValCheck(true)
+    } else {
+      setMaxValCheck(false)
+    }
+
+    if (usernameRegexCheck && minValCheck && maxValCheck) {
+      setInvalidUsername(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!usernameRegexCheck || !minValCheck || !maxValCheck) {
+      setInvalidUsername(true)
+    }
+  }
+
   // social handlers
+
+  //facebook checks
+  const facebookRegex = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/
+
   function handleFacebook() {
     setChecked({...checked, facebook: !checked.facebook})
 
     if (checked.facebook === false) {
       setInvalidFacebook(false)
+    }
+  }
+
+  function handleFacebookChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = facebookRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setFacebookRegexCheck(true)
+    } else {
+      setFacebookRegexCheck(false)
+    }
+
+    if (facebookRegexCheck) {
+      setInvalidFacebook(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!facebookRegexCheck || value === '') {
+      setInvalidFacebook(true)
     }
   }
 
@@ -180,14 +260,33 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
           />
         </div>
         <div className='flex flex-col gap-1'>
-          <label className={`${invalidUsername && 'text-danger dark:text-danger-dark'}`} htmlFor="username">Username</label>
+          <label className={`${invalidUsername && 'text-danger dark:text-danger-dark'}`} htmlFor="username">Username <button type="button" onClick={() => setShowInfo(!showInfo)}><InfoOutlined sx={{ height: '16px' }} /></button></label>
+          {showInfo && 
+            <div className='text-sm text-dark-armor/50 dark:text-old-lace/50'>
+              <p className={`font-bold ${invalidUsername === true ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500'}`}>Username:</p>
+              <ul>
+                <li className={`${!usernameRegexCheck ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500'}`}>&#x2022; must be a combination of:
+                  <ul className='ml-4'>
+                    <li>- lowercase letters ( a-z )</li>
+                    <li>- numbers ( 0-9 )</li>
+                    <li>- underscores ( _ ) and/or periods ( . )</li>
+                  </ul>
+                </li>
+                <li className={`${!minValCheck ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500'}`}>&#x2022; have minimum characters of 6</li>
+                <li className={`${!maxValCheck ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500'}`}>&#x2022; have maximum character of 30</li>
+              </ul>
+            </div>
+          }
           <input 
             className={`px-2 py-1 bg-fade dark:bg-fade-dark ${invalidUsername && 'border border-danger dark:border-danger-dark'}`}
             type="text" 
+            id='username'
             name="username" 
             defaultValue={json.username}
-            onChange={handleInputChange}
+            placeholder='yourusername_24'
+            onChange={handleUsernameChange}
           />
+          {invalidUsername ? <span className='text-sm text-danger dark:text-danger-dark'>{usernameError}</span> : <span className='text-sm text-green-700 dark:text-green-500'>{usernameSuccess}</span>}
         </div>
         <div className='flex flex-col gap-1'>
           <label htmlFor="bio">Bio</label>
@@ -201,20 +300,24 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             type="text" 
             name="website"
             defaultValue={json.website}
+            placeholder='boundlesscourage.org'
             onChange={handleInputChange} 
           />
         </div>
+        {/* socials */}
         <div className='w-full space-y-2'>
           <p>Socials:</p>
+          {/* facebook */}
           <div className='w-full flex items-center gap-2'>
             <input 
               type="checkbox" 
               name="facebook-checkbox" 
               onChange={handleFacebook}
             />
-            <label htmlFor="facebook-checkbox">Facebook</label>
-            {checked.facebook && <input className='w-1/2 px-2 py-1' name='facebook' defaultValue={json.facebook} placeholder='https://www.facebook.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.facebook ? invalidFacebook ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500' : null}`} htmlFor="facebook-checkbox">Facebook</label>
+            {checked.facebook && <input className={`w-1/2 px-2 py-1 ${invalidFacebook ? 'border border-danger dark:border-danger-dark' : 'text-green-700 dark:text-green-500'}`} name='facebook' defaultValue={json.facebook} placeholder='https://www.facebook.com/your_username' onChange={handleFacebookChange} />}
           </div>
+          {/* instagram */}
           <div className='flex items-center gap-2'>
             <input 
               type="checkbox" 
