@@ -58,7 +58,8 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
   const [invalidTwitter, setInvalidTwitter] = useState(false)
   const [invalidYouTube, setInvalidYouTube] = useState(false)
 
-  const [showInfo, setShowInfo] = useState(false)
+  const [showInfoUsername, setShowInfoUsername] = useState(false)
+  const [showInfoSocials, setShowInfoSocials] = useState(false)
 
   // username state checks
   const [usernameRegexCheck, setUsernameRegexCheck] = useState(false)
@@ -160,6 +161,9 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     }
   }
 
+  //instagram checks
+  const instagramRegex = /(?:https?:)?\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
+
   function handleInstagram() {
     setChecked({...checked, instagram: !checked.instagram})
 
@@ -168,6 +172,28 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     }
   }
 
+  function handleInstagramChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = instagramRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setInstagramRegexCheck(true)
+    } else {
+      setInstagramRegexCheck(false)
+    }
+
+    if (instagramRegexCheck) {
+      setInvalidInstagram(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!instagramRegexCheck || value === '') {
+      setInvalidInstagram(true)
+    }
+  }
+
+  // linkedin checks
+  const linkedinRegex = /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile|school|company|groups|showcase)\/([-a-zA-Z0-9]+)\/*/
+
   function handleLinkedIn() {
     setChecked({...checked, linkedin: !checked.linkedin})
 
@@ -175,6 +201,28 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
       setInvalidLinkedIn(false)
     }
   }
+
+  function handleLinkedInChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = linkedinRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setLinkedInRegexCheck(true)
+    } else {
+      setLinkedInRegexCheck(false)
+    }
+
+    if (linkedinRegexCheck) {
+      setInvalidLinkedIn(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!linkedinRegexCheck || value === '') {
+      setInvalidLinkedIn(true)
+    }
+  }
+
+  //tiktok checks
+  const tiktokRegex = /^(?:(?:https?:\/\/)?(?:www\.)?tiktok\.com\/)?@([\w.]{0,23}\w)(?:\/\S*)?$/
   
   function handleTikTok() {
     setChecked({...checked, tiktok: !checked.tiktok})
@@ -184,6 +232,28 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     }
   }
 
+  function handleTikTokChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = tiktokRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setTiktokRegexCheck(true)
+    } else {
+      setTiktokRegexCheck(false)
+    }
+
+    if (tiktokRegexCheck) {
+      setInvalidTikTok(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!tiktokRegexCheck || value === '') {
+      setInvalidTikTok(true)
+    }
+  }
+
+  // twitter checks
+  const twitterRegex = /^(?:https?:)?\/\/?(?:www\.)?twitter\.com\/@?([A-Za-z0-9_]+)\/?/
+
   function handleTwitter() {
     setChecked({...checked, twitter: !checked.twitter})
 
@@ -192,11 +262,52 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     }
   }
 
+  function handleTwitterChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = twitterRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setTwitterRegexCheck(true)
+    } else {
+      setTwitterRegexCheck(false)
+    }
+
+    if (twitterRegexCheck) {
+      setInvalidTwitter(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!twitterRegexCheck || value === '') {
+      setInvalidTwitter(true)
+    }
+  }
+
+  // youtube checks
+  const youtubeRegex = /(?:https?:)?\/\/(?:[A-z]+\.)?youtube.com\/(user|channel)\/([A-z0-9-\_]+)\/?/
+
   function handleYouTube() {
     setChecked({...checked, youtube: !checked.youtube})
 
     if (checked.youtube === false) {
       setInvalidYouTube(false)
+    }
+  }
+
+  function handleYouTubeChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    const regexMatch = youtubeRegex.test(value)
+
+    // regex check
+    if (regexMatch === true) {
+      setYoutubeRegexCheck(true)
+    } else {
+      setYoutubeRegexCheck(false)
+    }
+
+    if (youtubeRegexCheck) {
+      setInvalidYouTube(false)
+      setFormData({ ...formData, [name]: value })
+    } else if (!youtubeRegexCheck || value === '') {
+      setInvalidYouTube(true)
     }
   }
 
@@ -249,6 +360,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
     <div className='h-full w-full p-8 flex flex-col gap-4 overflow-hidden bg-old-lace dark:bg-raisin'>
       <h1 className='px-2 text-2xl text-purple dark:text-old-lace'>Edit Profile</h1>
       <form className='w-full px-2 space-y-4 overflow-scroll' onSubmit={handleSubmit}>
+        {/* name */}
         <div className='flex flex-col gap-1'>
           <label htmlFor="name">Name</label>
           <input 
@@ -259,9 +371,10 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             onChange={handleInputChange}
           />
         </div>
+        {/* username */}
         <div className='flex flex-col gap-1'>
-          <label className={`${invalidUsername && 'text-danger dark:text-danger-dark'}`} htmlFor="username">Username <button type="button" onClick={() => setShowInfo(!showInfo)}><InfoOutlined sx={{ height: '16px' }} /></button></label>
-          {showInfo && 
+          <label className={`${invalidUsername && 'text-danger dark:text-danger-dark'}`} htmlFor="username">Username <button type="button" onClick={() => setShowInfoUsername(!showInfoUsername)}><InfoOutlined sx={{ height: '16px' }} /></button></label>
+          {showInfoUsername && 
             <div className='text-sm text-dark-armor/50 dark:text-old-lace/50'>
               <p className={`font-bold ${invalidUsername === true ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500'}`}>Username:</p>
               <ul>
@@ -288,11 +401,13 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
           />
           {invalidUsername ? <span className='text-sm text-danger dark:text-danger-dark'>{usernameError}</span> : <span className='text-sm text-green-700 dark:text-green-500'>{usernameSuccess}</span>}
         </div>
+        {/* bio */}
         <div className='flex flex-col gap-1'>
           <label htmlFor="bio">Bio</label>
           <textarea className='px-2 py-1 bg-fade dark:bg-fade-dark' name="bio" defaultValue={json.bio} maxLength={250} onChange={handleTextAreaChange}></textarea>
           <span className='text-dark-armor/30 dark:text-old-lace/30'>{formData.bio?.length}/250</span>
         </div>
+        {/* website */}
         <div className='flex flex-col gap-1'>
           <label htmlFor="website">Website</label>
           <input 
@@ -306,7 +421,8 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
         </div>
         {/* socials */}
         <div className='w-full space-y-2'>
-          <p>Socials:</p>
+          <p>Socials <button type="button" onClick={() => setShowInfoSocials(!showInfoSocials)}><InfoOutlined sx={{ height: '16px' }} /></button></p>
+          {showInfoSocials && <span className='text-sm text-dark-armor/50 dark:text-old-lace/50'>Must include full link of social media profile</span>}
           {/* facebook */}
           <div className='w-full flex items-center gap-2'>
             <input 
@@ -314,8 +430,8 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
               name="facebook-checkbox" 
               onChange={handleFacebook}
             />
-            <label className={`${checked.facebook ? invalidFacebook ? 'text-danger dark:text-danger-dark' : 'text-green-700 dark:text-green-500' : null}`} htmlFor="facebook-checkbox">Facebook</label>
-            {checked.facebook && <input className={`w-1/2 px-2 py-1 ${invalidFacebook ? 'border border-danger dark:border-danger-dark' : 'text-green-700 dark:text-green-500'}`} name='facebook' defaultValue={json.facebook} placeholder='https://www.facebook.com/your_username' onChange={handleFacebookChange} />}
+            <label className={`${checked.facebook && invalidFacebook && 'text-danger dark:text-danger-dark'}`} htmlFor="facebook-checkbox">Facebook</label>
+            {checked.facebook && <input className={`w-1/2 px-2 py-1 ${invalidFacebook && 'border border-danger dark:border-danger-dark'}`} name='facebook' defaultValue={json.facebook} placeholder='https://www.facebook.com/your_username' onChange={handleFacebookChange} />}
           </div>
           {/* instagram */}
           <div className='flex items-center gap-2'>
@@ -324,9 +440,10 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
               name="instagram-checkbox" 
               onChange={handleInstagram}
             />
-            <label htmlFor="instagram-checkbox">Instagram</label>
-            {checked.instagram && <input className='w-1/2 px-2 py-1' name='instagram' defaultValue={json.instagram} placeholder='https://www.instagram.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.instagram && invalidInstagram && 'text-danger dark:text-danger-dark'}`} htmlFor="instagram-checkbox">Instagram</label>
+            {checked.instagram && <input className={`w-1/2 px-2 py-1 ${invalidInstagram && 'border border-danger dark:border-danger-dark'}`} name='instagram' defaultValue={json.instagram} placeholder='https://www.instagram.com/your_username' onChange={handleInstagramChange} />}
           </div>
+          {/* linkedin */}
           <div className='flex items-center gap-2'>
             <input 
               type="checkbox" 
@@ -334,35 +451,38 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
               checked={checked.linkedin}
               onChange={handleLinkedIn}
             />
-            <label htmlFor="linkedin-checkbox">LinkedIn</label>
-            {checked.linkedin && <input className='w-1/2 px-2 py-1' name='linkedin' defaultValue={json.linkedin} placeholder='https://www.linkedin.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.linkedin && invalidLinkedIn && 'text-danger dark:text-danger-dark'}`} htmlFor="linkedin-checkbox">LinkedIn</label>
+            {checked.linkedin && <input className={`w-1/2 px-2 py-1 ${invalidLinkedIn && 'border border-danger dark:border-danger-dark'}`} name='linkedin' defaultValue={json.linkedin} placeholder='https://www.linkedin.com/your_username' onChange={handleLinkedInChange} />}
           </div>
+          {/* tiktok */}
           <div className='flex items-center gap-2'>
             <input 
               type="checkbox" 
               name="tiktok-checkbox" 
               onChange={handleTikTok}
             />
-            <label htmlFor="tiktok-checkbox">TikTok</label>
-            {checked.tiktok && <input className='w-1/2 px-2 py-1' name='tiktok' defaultValue={json.tiktok} placeholder='https://www.tiktok.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.tiktok && invalidTikTok && 'text-danger dark:text-danger-dark'}`} htmlFor="tiktok-checkbox">TikTok</label>
+            {checked.tiktok && <input className={`w-1/2 px-2 py-1 ${invalidTikTok && 'border border-danger dark:border-danger-dark'}`} name='tiktok' defaultValue={json.tiktok} placeholder='https://www.tiktok.com/@your_username' onChange={handleTikTokChange} />}
           </div>
+          {/* twiiter */}
           <div className='flex items-center gap-2'>
             <input 
               type="checkbox" 
               name="twitter-checkbox" 
               onChange={handleTwitter}
             />
-            <label htmlFor="twitter-checkbox">X (formerly Twitter)</label>
-            {checked.twitter && <input className='w-1/2 px-2 py-1' name='twitter' defaultValue={json.twitter} placeholder='https://www.twitter.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.twitter && invalidTwitter && 'text-danger dark:text-danger-dark'}`} htmlFor="twitter-checkbox">X (formerly Twitter)</label>
+            {checked.twitter && <input className={`w-1/2 px-2 py-1 ${invalidTwitter && 'border border-danger dark:border-danger-dark'}`} name='twitter' defaultValue={json.twitter} placeholder='https://www.twitter.com/your_username' onChange={handleTwitterChange} />}
           </div>
+          {/* youtube */}
           <div className='flex items-center gap-2'>
             <input 
               type="checkbox" 
               name="youtube-checkbox" 
               onChange={handleYouTube}
             />
-            <label htmlFor="youtube-checkbox">YouTube</label>
-            {checked.youtube && <input className='w-1/2 px-2 py-1' name='youtube' defaultValue={json.youtube} placeholder='https://www.youtube.com/your_username' onChange={handleInputChange} />}
+            <label className={`${checked.youtube && invalidYouTube && 'text-danger dark:text-danger-dark'}`} htmlFor="youtube-checkbox">YouTube</label>
+            {checked.youtube && <input className={`w-1/2 px-2 py-1 ${invalidYouTube && 'border border-danger dark:border-danger-dark'}`} name='youtube' defaultValue={json.youtube} placeholder='https://www.youtube.com/your_username' onChange={handleYouTubeChange} />}
           </div>
         </div>
         <div className='flex gap-4'>
