@@ -4,26 +4,39 @@ import prisma from '@/libs/prismadb'
 
 import { getCurrentUser } from '../../actions/getCurrentUser'
 
-import Main from '@/components/homepage/main'
-import getUser from '../../actions/getUser'
-import { User } from '@prisma/client'
-// import { getPosts } from '../../actions/getPosts'
+import DesktopNav from '@/components/nav/desktopNav'
+import MobileNav from '@/components/nav/mobileNav'
+import { Post, User } from '@prisma/client'
+import MyHome from '@/components/homepage/myHome'
 
-interface HomeProps {
-  params: { url: string }
+
+export interface PostProps {
+  id: string,
+  name: string,
+  userId: string,
+  title: string | null,
+  content: string,
+  draft: boolean | null,
+  anonymous: boolean | null,
+  updatedAt: Date,
+  liker: string[] | null,
+  liking: string[] | null
 }
 
-const Home:React.FC<HomeProps> = async ({ params }) => {
+const Home = async () => {
   const currentUser = await getCurrentUser()
   const allPosts = await prisma.post.findMany({
     orderBy: {
       createdAt: 'desc'
     }
   })
-  const url = params.url
 
   return (
-    <Main currentUser={currentUser} params={url} posts={allPosts} />
+    <main className="relative flex">
+      <DesktopNav currentUser={currentUser} />
+      <MobileNav currentUser={currentUser} />
+      <MyHome currentUser={currentUser} posts={allPosts} />
+    </main>
   )
 }
 

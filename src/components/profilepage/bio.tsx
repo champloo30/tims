@@ -40,7 +40,6 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
   const userJson = JSON.parse(JSON.stringify(user))
   
   async function submit(formData: FollowData) {
-    console.log(formData);
     const followingUser = formData.followingUser
     const followedUser = formData.followedUser
 
@@ -93,7 +92,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                 {userJson.website && 
                   <div className='flex gap-2'>
                     <WebLink />
-                    <a className='lg:hover:text-purple dark:lg:hover:text-violet lg:hover:underline transition-all ease-in duration-150' href={`https://${userJson.website}`} target="_blank" rel="noopener noreferrer" title={`To ${userJson.website}`}>{userJson.website}</a>
+                    <a href={`https://${userJson.website}`} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.website}`}>{userJson.website}</a>
                   </div>
                 }
                 {userJson.facebook !== '' || userJson.instagram !== '' || userJson.linkedin !== '' || userJson.tiktok !== '' || userJson.twitter !== '' || userJson.youtube !== '' ?
@@ -101,22 +100,22 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                     <ShareSocial />
                     <ul className='flex items-center gap-2'>
                       {userJson.facebook && 
-                        <li><a href={userJson.facebook} target="_blank" rel="noopener noreferrer"><FacebookRounded /></a></li>
+                        <li><a href={userJson.facebook} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s Facebook`}><FacebookRounded /></a></li>
                       }
                       {userJson.instagram && 
-                        <li><a href={userJson.instagram} target="_blank" rel="noopener noreferrer"><Instagram /></a></li>
+                        <li><a href={userJson.instagram} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s Instagram`}><Instagram /></a></li>
                       }
                       {userJson.linkedin && 
-                        <li><a href={userJson.linkedin} target="_blank" rel="noopener noreferrer"><LinkedIn /></a></li>
+                        <li><a href={userJson.linkedin} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s LinkedIn`}><LinkedIn /></a></li>
                       }
                       {userJson.tiktok && 
-                        <li><a href={userJson.tiktok} target="_blank" rel="noopener noreferrer"><TikTok /></a></li>
+                        <li><a href={userJson.tiktok} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s TikTok`}><TikTok /></a></li>
                       }
                       {userJson.twitter && 
-                        <li><a href={userJson.twitter} target="_blank" rel="noopener noreferrer"><Twitter /></a></li>
+                        <li><a href={userJson.twitter} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s X (Twitter)`}><Twitter /></a></li>
                       }
                       {userJson.youtube && 
-                        <li><a href={userJson.youtube} target="_blank" rel="noopener noreferrer"><YouTube /></a></li>
+                        <li><a href={userJson.youtube} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s YouTube`}><YouTube /></a></li>
                       }
                     </ul>
                   </div>

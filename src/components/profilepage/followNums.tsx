@@ -1,6 +1,5 @@
 import { User } from '@prisma/client'
 import React from 'react'
-// import useFollow from '@/hooks/useFollow'
 
 interface FollowNumsProps {
   user: User | null

@@ -20,6 +20,7 @@ const handler = async (req: Request) => {
       username: followedUser
     }
   })
+  
   try {
     let currentId = currentUser?.id
     let fetchedId = fetchedUser?.id

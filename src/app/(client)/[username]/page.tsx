@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 
 import prisma from '@/libs/prismadb'
 
@@ -8,7 +8,6 @@ import getUser from '../../../../actions/getUser'
 import MyProfile from '@/components/profilepage/myProfile'
 import DesktopNav from '@/components/nav/desktopNav'
 import MobileNav from '@/components/nav/mobileNav'
-import Modal from '@/components/ui/modal'
 
 interface ProfileProps {
   params: { username: string }
@@ -17,20 +16,23 @@ interface ProfileProps {
 const Home: React.FC<ProfileProps> = async ({ params }) => {
   const currentUser = await getCurrentUser()
 
+  // get user
+  const user = await getUser(params.username)
+
   // get all user posts
   const allUserPosts = await prisma.post.findMany({
     where: {
-      userId: params.username
+      userId: user?.id
     },
     orderBy: {
       id: 'desc'
     }
   })
 
-  // get all user anonymous
+  // get all user anonymous post
   const anonPosts = await prisma.post.findMany({
     where: {
-      userId: params.username,
+      userId: user?.id,
       anonymous: true
     },
     orderBy: {
@@ -38,25 +40,13 @@ const Home: React.FC<ProfileProps> = async ({ params }) => {
     }
   })
 
-  // get all user drafts
-  const draftPosts = await prisma.post.findMany({
-    where: {
-      userId: params.username,
-      draft: true
-    },
-    orderBy: {
-      id: 'desc'
-    }
-  })
-
-  const user = await getUser(params.username)
   const username = params.username
 
   return (
     <>
       <DesktopNav currentUser={currentUser} />
       <MobileNav currentUser={currentUser} />
-      <MyProfile currentUser={currentUser} posts={allUserPosts} anonPosts={anonPosts} draftPosts={draftPosts} user={user} params={username} />
+      <MyProfile currentUser={currentUser} posts={allUserPosts} anonPosts={anonPosts} user={user} params={username} />
     </>
   )
 }

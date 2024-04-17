@@ -15,7 +15,7 @@ export function dateFormatter(date: Date) {
   } 
 
   if (currentMinute < 60) {
-    return currentMinute + 'm ago'
+    return currentMinute + 'min ago'
   }
 
   if (currentHour < 24) {

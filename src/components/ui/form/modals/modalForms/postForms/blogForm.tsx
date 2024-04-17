@@ -16,6 +16,7 @@ export interface BlogFormProps {
 }
 
 export interface BlogData {
+  userId: string | undefined | null,
   title: string,
   content: string,
   draft?: boolean
@@ -23,6 +24,7 @@ export interface BlogData {
 
 const BlogForm:React.FC<BlogFormProps> = ({ currentUser, formtype, onSubmit, isLoading, setOpenModal }) => {
   const [formData, setFormData] = useState<BlogData>({
+    userId: currentUser?.id,
     title: '',
     content: '',
     draft: false
@@ -51,29 +53,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ currentUser, formtype, onSubmit, isL
       setInvalid(false)
       onSubmit(formData)
       setFormData({
-        title: '',
-        content: '',
-        draft: false
-      })
-    }
-  }  
-
-  function handleDraft() {
-    if (formData.draft === false) {
-      setFormData({...formData, draft: true})
-    }
-
-    if (formData.draft === true) {
-      onSubmit(formData)
-      setFormData({
-        title: '',
-        content: '',
-        draft: false
-      })
-    } else {
-      setFormData({...formData, draft: true})
-      onSubmit(formData)
-      setFormData({
+        userId: currentUser?.id,
         title: '',
         content: '',
         draft: false
@@ -110,10 +90,9 @@ const BlogForm:React.FC<BlogFormProps> = ({ currentUser, formtype, onSubmit, isL
         <span className='text-sm text-dark-armor/50 dark:text-old-lace/50'>{formData.content.length}/1000</span>
         <div className='flex gap-4'>
           <Button type='submit' title={formtype === 'create' ? 'Post Blog' : 'Update Blog'}>{formtype === 'create' ? 'Post' : 'Update'}</Button>
-          <Button type='button' onClick={() => setCloseModal(true)}>Cancel</Button>
+          <Button type='button' onClick={() => setOpenModal(false)}>Cancel</Button>
         </div>
       </form>
-      {closeModal && <Modal currentUser={currentUser} modal='close' setOpenModal={setOpenModal} postType={'blog'} submit={handleDraft} />}
     </>
   )
 }

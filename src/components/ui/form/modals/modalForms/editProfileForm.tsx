@@ -428,6 +428,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             <input 
               type="checkbox" 
               name="facebook-checkbox" 
+              checked={checked.facebook}
               onChange={handleFacebook}
             />
             <label className={`${checked.facebook && invalidFacebook && 'text-danger dark:text-danger-dark'}`} htmlFor="facebook-checkbox">Facebook</label>
@@ -438,6 +439,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             <input 
               type="checkbox" 
               name="instagram-checkbox" 
+              checked={checked.instagram}
               onChange={handleInstagram}
             />
             <label className={`${checked.instagram && invalidInstagram && 'text-danger dark:text-danger-dark'}`} htmlFor="instagram-checkbox">Instagram</label>
@@ -459,6 +461,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             <input 
               type="checkbox" 
               name="tiktok-checkbox" 
+              checked={checked.tiktok}
               onChange={handleTikTok}
             />
             <label className={`${checked.tiktok && invalidTikTok && 'text-danger dark:text-danger-dark'}`} htmlFor="tiktok-checkbox">TikTok</label>
@@ -469,6 +472,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             <input 
               type="checkbox" 
               name="twitter-checkbox" 
+              checked={checked.twitter}
               onChange={handleTwitter}
             />
             <label className={`${checked.twitter && invalidTwitter && 'text-danger dark:text-danger-dark'}`} htmlFor="twitter-checkbox">X (formerly Twitter)</label>
@@ -479,6 +483,7 @@ const EditProfileForm:React.FC<EditProfileFormProps> = ({ currentUser, setOpenMo
             <input 
               type="checkbox" 
               name="youtube-checkbox" 
+              checked={checked.youtube}
               onChange={handleYouTube}
             />
             <label className={`${checked.youtube && invalidYouTube && 'text-danger dark:text-danger-dark'}`} htmlFor="youtube-checkbox">YouTube</label>

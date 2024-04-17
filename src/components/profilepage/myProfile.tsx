@@ -12,12 +12,11 @@ interface MyProfileProps {
   currentUser: User | null
   posts: Post[]
   anonPosts: Post[]
-  draftPosts: Post[]
   user: User | null
   params: string
 }
 
-const MyProfile:React.FC<MyProfileProps> = ({ currentUser, posts, anonPosts, draftPosts, user, params }) => {
+const MyProfile:React.FC<MyProfileProps> = ({ currentUser, posts, anonPosts, user, params }) => {
   const router = useRouter()
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const MyProfile:React.FC<MyProfileProps> = ({ currentUser, posts, anonPosts, dra
         {currentUser && 
           <Bio currentUser={currentUser} posts={posts} anonPosts={anonPosts} user={user} params={params} />
         }
-        <Posts currentUser={currentUser} posts={posts} user={user} anonPosts={anonPosts} draftPosts={draftPosts} />
+        <Posts currentUser={currentUser} posts={posts} user={user} anonPosts={anonPosts} />
       </div>
     </section>
   )

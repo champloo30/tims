@@ -78,10 +78,10 @@ model Post {
   updatedAt     DateTime    @updatedAt
 
   likingUsers   String[]    @db.ObjectId
-  userId        String      
+  userId        String      @db.ObjectId     
 
   //relations
-  user          User        @relation(fields: [userId], references: [username], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments      Comment[]
 }
 

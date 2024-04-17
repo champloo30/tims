@@ -11,11 +11,11 @@ const handler = async (req: Request) => {
 
   const currentUser = await prisma.user.findUnique({
     where: {
-      username: likingUser
+      id: likingUser
     }
   })
 
-  const post = await prisma.post.findUnique({
+  const fetchedPost = await prisma.post.findUnique({
     where: {
       id: likedPost
     }
@@ -23,9 +23,9 @@ const handler = async (req: Request) => {
   
   try {
     let currentId = currentUser?.id
-    let postId = post?.id
+    let postId = fetchedPost?.id
 
-    let updateLikers = [...(post?.likingUsers || [])]
+    let updateLikers = [...(fetchedPost?.likingUsers || [])]
     let updateLikedPosts = [...(currentUser?.likedPosts || [])]
 
     if (req.method === 'POST') {
@@ -52,7 +52,7 @@ const handler = async (req: Request) => {
         id: currentId
       },
       data: {
-        following: updateLikedPosts
+        likedPosts: updateLikedPosts
       }
     })
 

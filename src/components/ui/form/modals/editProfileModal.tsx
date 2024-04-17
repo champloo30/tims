@@ -33,9 +33,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ currentUser, setOpe
   }
 
   return (
-    <div className='h-[90%] w-2/3'>
-      <EditProfileForm currentUser={currentUser} setOpenModal={setOpenModal} onSubmit={submit} isLoading={isLoading} />
-    </div>
+    <EditProfileForm currentUser={currentUser} setOpenModal={setOpenModal} onSubmit={submit} isLoading={isLoading} />
   )
 }
 

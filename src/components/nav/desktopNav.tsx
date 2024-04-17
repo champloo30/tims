@@ -29,7 +29,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
   const { status } = useSession()
   const router = useRouter()
   const pathname = usePathname()
-
+  
   const json = JSON.parse(JSON.stringify(currentUser))
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
         {status === 'authenticated' && 
           <div className='space-y-2'>
             <ThemeTogglerSide />
-            <Link className='group px-4 py-4 flex flex-col gap-2 hover:bg-fade dark:hover:bg-fade-dark rounded-lg cursor-pointer transition ease-linear duration-300' href={`/${json.username}`} title='My Profile'>
+            <a className='group px-4 py-4 flex flex-col gap-2 hover:bg-fade dark:hover:bg-fade-dark rounded-lg cursor-pointer transition ease-linear duration-300' href={`/${json.username}`} title='My Profile'>
               <div className='flex gap-2 ease-in-out duration-300'>
                 <div className='h-12 w-12 bg-purple dark:bg-violet rounded-full'>
                   {json.image && 
@@ -100,7 +100,7 @@ export const DesktopNav:React.FC<DesktopNavProps> = ({ currentUser }) => {
                   <p className='lg:group-hover:text-purple dark:lg:group-hover:text-violet cursor-pointer transition-all ease-linear duration-300'>@{json.username}</p>
                 </div>
               </div>
-            </Link>
+            </a>
           </div>
         }
       </div>
