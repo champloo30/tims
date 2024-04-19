@@ -30,12 +30,14 @@ const MyHome:React.FC<MyHomeProps> = async ({ currentUser, posts }) => {
               id={post.id} 
               name={user?.name}
               user={user?.username}
+              img={user?.image}
               anon={post.anonymous} 
               title={post.title} 
               content={post.content} 
               createdAt={createdDate}
               updatedAt={updatedDate}
               likingUsers={post.likingUsers}
+              savingUsers={post.savingUsers}
               currentUser={currentUser}
               posts={postJson}
             />

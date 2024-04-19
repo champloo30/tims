@@ -1,11 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 import { Autorenew } from '@mui/icons-material'
-
-import prisma from '@/libs/prismadb'
 
 const LoadPosts = () => {
   const [isLoading, setIsLoading] = useState(false)

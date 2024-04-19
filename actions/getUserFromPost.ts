@@ -1,30 +1,21 @@
 import { NextResponse } from "next/server";
 
 import prisma from '@/libs/prismadb'
-import { getCurrentUser } from "./getCurrentUser";
-import getUser from "./getUser";
 
-export async function getUserFromPost(params: string) {
-  const user = getUser(params)
+export async function getUserFromPost(id: string) {
 
   try {
     const getUser = await prisma.user.findUnique({
       where: {
-        username: userId
+        id: id
       }
     })
-
-    // const getUser = await prisma.user.findUnique({
-    //   where: {
-    //     username: params
-    //   }
-    // })
 
     if (!getUser) {
       return null
     }
 
-    return {...getUser, name: getUser.name, username: getUser.username}
+    return {...getUser, id: getUser.id}
   } catch (error: any) {
     console.log(error);
     return new NextResponse('Something went wrong', { status: 405 })

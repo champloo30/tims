@@ -19,7 +19,7 @@ export interface LikeData {
 const LikeForm:React.FC<LikeFormProps> = ({ currentUser, id, onSubmit, posts }) => {
   const json = JSON.parse(JSON.stringify(currentUser))
 
-  const [formData, setFormData] = useState<LikeData>({
+  const [formData] = useState<LikeData>({
     likingUser: json.id,
     likedPost: id
   })
@@ -34,22 +34,8 @@ const LikeForm:React.FC<LikeFormProps> = ({ currentUser, id, onSubmit, posts }) 
 
   return (
     <form className='flex justify-center items-center' onSubmit={handleSubmit}>
-      <div className='hidden flex-col justify-start items-center'>
-        <input 
-          name='followingUser' 
-          type='text' 
-          placeholder='' 
-          defaultValue={formData.likingUser}
-        />
-        <input 
-          name='followedUser' 
-          type='text' 
-          placeholder='' 
-          defaultValue={formData.likedPost}
-        />
-      </div>
       <button type="submit">
-        <Favorite className={`${currentPost?.likingUsers.includes(currentUser.id) ? 'fill-purple dark:fill-violet' : 'stroke-2 stroke-dark-armor/50 fill-old-lace dark:stroke-old-lace/50 dark:fill-raisin'} cursor-pointer`} titleAccess={currentPost?.likingUsers.includes(currentUser.id) ? 'Unlike' : 'Like'} />
+        <Favorite className={`${currentPost?.likingUsers.includes(currentUser.id) ? 'stroke-2 stroke-purple fill-purple dark:stroke-violet dark:fill-violet' : 'stroke-2 stroke-dark-armor/50 fill-old-lace dark:stroke-old-lace/50 dark:fill-raisin'} cursor-pointer`} titleAccess={currentPost?.likingUsers.includes(currentUser.id) ? 'Unlike' : 'Like'} />
       </button>
     </form>
   )

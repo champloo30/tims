@@ -23,8 +23,12 @@ model User {
   updatedAt       DateTime      @updatedAt
   followers       String[]      @db.ObjectId
   following       String[]      @db.ObjectId
+
+  //post relation info
   likedPosts      String[]      @db.ObjectId
+  savedPosts      String[]      @db.ObjectId
   likedComments   String[]      @db.ObjectId
+  myPosts         String[]      @db.ObjectId
 
   //profile info
   bio             String?
@@ -78,6 +82,7 @@ model Post {
   updatedAt     DateTime    @updatedAt
 
   likingUsers   String[]    @db.ObjectId
+  savingUsers   String[]    @db.ObjectId
   userId        String      @db.ObjectId     
 
   //relations

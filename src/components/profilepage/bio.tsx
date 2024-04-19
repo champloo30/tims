@@ -8,21 +8,21 @@ import { Post, User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
+import FollowNums from './followNums'
+import PostNums from './postNums'
+
 import Button from '@/components/ui/button'
 import FollowForm, { FollowData } from '@/components/ui/form/followForm'
+import Modal from '@/components/ui/modal'
 
 import WebLink from '@/components/icons/link'
 import ShareSocial from '@/components/icons/shareSocial'
-import Facebook from '@/components/icons/socialMedia/facebook'
 import Instagram from '@/components/icons/socialMedia/instagram'
 import YouTube from '@/components/icons/socialMedia/youTube'
 import LinkedIn from '@/components/icons/socialMedia/linkedIn'
 import TikTok from '@/components/icons/socialMedia/tiktok'
 import Twitter from '@/components/icons/socialMedia/twitter'
 
-import FollowNums from './followNums'
-import PostNums from './postNums'
-import Modal from '../ui/modal'
 import { FacebookRounded } from '@mui/icons-material'
 
 interface BioProps {
@@ -60,6 +60,13 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
     }
   }
 
+  const noFacebook = !userJson.facebook || userJson.facebook === ''
+  const noInstagram = !userJson.instagram || userJson.instagram === ''
+  const noLinkedIn = !userJson.linkedin || userJson.linkedin === ''
+  const noTikTok = !userJson.tiktok || userJson.tiktok === ''
+  const noTwitter = !userJson.twitter || userJson.twitter === ''
+  const noYouTube = !userJson.youtube || userJson.youtube === ''
+
   return (
     <>
       <div className='h-fit xl:h-64 w-full py-6 xl:py-0 flex xl:justify-center items-center bg-old-lace dark:bg-raisin'>
@@ -95,7 +102,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                     <a href={`https://${userJson.website}`} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.website}`}>{userJson.website}</a>
                   </div>
                 }
-                {userJson.facebook !== '' || userJson.instagram !== '' || userJson.linkedin !== '' || userJson.tiktok !== '' || userJson.twitter !== '' || userJson.youtube !== '' ?
+                {!noFacebook || !noInstagram || !noLinkedIn || !noTikTok || !noTwitter || !noYouTube ?
                   <div className='flex items-center gap-2'>
                     <ShareSocial />
                     <ul className='flex items-center gap-2'>
@@ -118,8 +125,7 @@ const Bio:React.FC<BioProps> = ({ currentUser, posts, anonPosts, user }) => {
                         <li><a href={userJson.youtube} target="_blank" rel="noopener noreferrer" title={`Link to ${userJson.name}'s YouTube`}><YouTube /></a></li>
                       }
                     </ul>
-                  </div>
-                  : null
+                  </div> : null
                 }
               </div>
             </div>

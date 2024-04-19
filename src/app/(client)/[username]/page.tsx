@@ -19,6 +19,9 @@ const Home: React.FC<ProfileProps> = async ({ params }) => {
   // get user
   const user = await getUser(params.username)
 
+  // get all users
+  const getAllUsers = await prisma.user.findMany()
+
   // get all user posts
   const allUserPosts = await prisma.post.findMany({
     where: {
@@ -29,11 +32,23 @@ const Home: React.FC<ProfileProps> = async ({ params }) => {
     }
   })
 
-  // get all user anonymous post
+  // get all user anonymous posts
   const anonPosts = await prisma.post.findMany({
     where: {
       userId: user?.id,
       anonymous: true
+    },
+    orderBy: {
+      id: 'desc'
+    }
+  })
+
+  // get all user saved posts
+  const savedPosts = await prisma.post.findMany({
+    where: {
+      savingUsers: {
+        has: user?.id
+      }
     },
     orderBy: {
       id: 'desc'
@@ -46,7 +61,7 @@ const Home: React.FC<ProfileProps> = async ({ params }) => {
     <>
       <DesktopNav currentUser={currentUser} />
       <MobileNav currentUser={currentUser} />
-      <MyProfile currentUser={currentUser} posts={allUserPosts} anonPosts={anonPosts} user={user} params={username} />
+      <MyProfile currentUser={currentUser} allUsers={getAllUsers} posts={allUserPosts} anonPosts={anonPosts} savedPosts={savedPosts} user={user} params={username} />
     </>
   )
 }

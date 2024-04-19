@@ -13,8 +13,6 @@ interface EditProfileModalProps {
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ currentUser, setOpenModal }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const json = JSON.parse(JSON.stringify(currentUser))
 
   async function submit(formData: ProfileData) {
     console.log(formData);
@@ -26,9 +24,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ currentUser, setOpe
     .catch(() => toast.error('Something went wrong'))
     .finally(() => {
       setOpenModal(false)
-      router.push(`/${json.username}`)
-      router.refresh()
       setIsLoading(false)
+      location.reload()
     })
   }
 
